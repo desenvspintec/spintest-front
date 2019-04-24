@@ -1,0 +1,21 @@
+<p-blockUI [blocked]="loadingService.loading">
+    <p-progressSpinner [style]="{position:'absolute',top:'40%',left:'50%'}"></p-progressSpinner>
+</p-blockUI>
+
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+    <app-menu></app-menu>
+    <div class="layout-content">
+        <p-panel>
+            <p-header>
+                    <p-breadcrumb styleClass="topbar-breadcrump" [model]="breadcrumbService.items" [home]="home"></p-breadcrumb>
+            </p-header>
+            <router-outlet></router-outlet>
+        </p-panel>
+            
+        
+    </div>
+    
+    <!-- <app-footer></app-footer>-->
+</div>

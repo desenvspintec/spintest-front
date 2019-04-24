@@ -1,0 +1,42 @@
+
+
+.ui-message.ui-messages-error, .ui-messages-error.ui-messages, .ui-message.ui-messages-required, .ui-messages-required.ui-messages {
+  background: #c74c4c;
+}
+
+.ui-message.ui-messages-error:before,  .ui-message.ui-messages-required:before {
+  border-bottom: 4px solid #c74c4c;
+}
+
+.ui-message:before{
+  content: "";
+  border: 1px solid;
+  position: absolute;
+  top: -4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: transparent;
+}
+
+.ui-message, .ui-messages {
+  font-size: 0.85em;
+  border-radius: 3px;
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  z-index: 16 !important;
+  padding: 4px 6px;
+  margin: 0;
+  line-height: 13px;
+  top: 29px;
+  border: none;
+  -webkit-box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.03em;
+  color: #FFF;
+  -webkit-animation: easeTop 0.1s ease, fadeIn 0.1s ease;
+  animation: easeTop 0.1s ease, fadeIn 0.1s ease;
+  cursor: default !important;
+}

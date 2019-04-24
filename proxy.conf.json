@@ -1,0 +1,7 @@
+{
+    "/":{
+        "target":"http://ec2-54-185-223-116.us-west-2.compute.amazonaws.com:8080",
+        "secure":false,
+        "logLevel":"debug"
+    }
+}

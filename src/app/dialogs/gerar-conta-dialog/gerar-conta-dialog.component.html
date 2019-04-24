@@ -1,0 +1,27 @@
+<p-dialog [header]="title" (onHide)="onHide($event)" [(visible)]="display" [modal]="true" [minWidth]="500">
+  <form name="form" [formGroup]="form" (ngSubmit)="confirmar()" [ngStyle]="{minHeight:'200px'}">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <div class="u-inputgroup ">
+          <label for="idAgencia">Agência</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-autoComplete id="idAgencia" [suggestions]="results" field="dsAgencia" placeholder="Agências" formControlName="idAgencia"
+              (completeMethod)="search($event)" [autoHighlight]="true" emptyMessage="Agência não encontrada."
+              scrollHeight="130px">
+              <ng-template let-value pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <span style="font-size:18px;float:left;margin:10px 10px 0 0">{{value.dsAgencia}}</span>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+            <app-error-msg [control]="form.get('idAgencia')" label="Agências"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <button pButton (click)="confirmar()" label="Confirmar" icon="pi pi-check"
+      class="ui-button-raised ui-button-success"></button>
+  </p-footer>
+</p-dialog>
