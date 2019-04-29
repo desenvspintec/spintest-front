@@ -38,6 +38,8 @@ li.ui-tabmenuitem {
 }
 
 
+
+
 .layout-wrapper {
     background-color: #ecf0f5;
 
@@ -115,6 +117,7 @@ li.ui-tabmenuitem {
         top: 60px;
         background-color: #f9fafc;
         height: 100%;
+        z-index: 9999;
         @include shadow(0 0 16px 0 rgba(0, 0, 0, 0.16));
 
         li.ui-submenu-header {
@@ -142,20 +145,89 @@ li.ui-tabmenuitem {
 
     .layout-content {
         padding: 84px 24px 24px 24px;
+        height: 100%;
+        width: 94%;
+        position: fixed;
+
+        .layout-panel {
+            height: 100%;
+
+            .ui-panel-content-wrapper {
+                height: 100%;
+
+                .ui-panel-content {
+                    height: 92.5%;
+                    
+      
+                    
+                }
+            }
+        }
     }
 
-    .layout-footer {
-        width: 100%;
-        background-color: #343c41;
-        padding: 16px;
-        padding-left: 266px;
-        color: #d8d8d8;
-        bottom: 0;
-        position: fixed;
-        
+    .layout-table {
+        height: 90%;
+        position: inherit;
+
+        .ui-table-wrapper {
+            height: 100%;
+            border-left: 1px solid #c8c8c8 ;
+            border-right: 1px solid #c8c8c8 ;
+
+            .ui-table {
+                height: 100%;
+
+                table {
+                    height: 100%;
+                }
+            }
+
+            tbody > tr > td {
+                border:unset !important;
+            }
+
+            thead {
+                border-bottom: 1px solid #c8c8c8 !important;
+            }
+
+            thead > tr > th{
+                border: unset !important;
+            }
+        }
+
+        .ui-state-highlight {
+            background-color: #3c8dbc !important;
+        }
     }
     
 }
+
+.layout-table2 {
+    .ui-table2 {
+      
+
+        tr > th  {
+            border:unset !important;
+            border-bottom: 1px solid #c8c8c8 !important;
+           
+        }
+         tbody > tr > td {
+            border:unset !important;
+
+        }
+        tbody{
+            border: 1px solid #c8c8c8 !important; 
+        }
+        thead{
+            border: 1px solid #c8c8c8 !important;
+        }
+       
+    }
+
+    
+}
+
+
 
 span.ui-menuitem-text{
     color: #848484 !important;

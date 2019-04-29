@@ -21,6 +21,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuModule } from 'primeng/menu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenubarModule } from 'primeng/menubar';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 // app components
 import { AppComponent } from './app.component';
@@ -34,6 +36,9 @@ import { HttpConfigInterceptor } from './components/interceptors/http-config.int
 import { TableFrontComponent } from './components/tables/table-front/table-front.component';
 import { OutletComponent } from './components/outlet/outlet.component';
 
+// components
+import { PubSubModule } from 'angular7-pubsub';
+
 //router
 import { routing } from './routes/app-route';
 
@@ -44,7 +49,6 @@ import { initializer } from './utils/app-init';
 //pages
 import { TesteComponent } from './pages/teste/teste.component';
 import { FooterComponent } from './components/template/footer/footer.component';
-import { GerarContaDialogComponent } from './dialogs/gerar-conta-dialog/gerar-conta-dialog.component';
 import { TabMenuComponent } from './components/template/tab-menu/tab-menu.component';
 import { CadastrarEmpresaComponent } from './pages/empresa/empresa/cadastrar-empresa/cadastrar-empresa.component';
 import { ListaProdutoComponent } from './pages/empresa/produto/lista-produto/lista-produto.component';
@@ -56,6 +60,8 @@ import { CadastrarProjetoDeTesteComponent } from './pages/projeto-de-teste/cadas
 import { ListaEmpresaComponent } from './pages/empresa/empresa/lista-empresa/lista-empresa.component';
 import { ListaFornecedorComponent } from './pages/empresa/fornecedor/lista-fornecedor/lista-fornecedor.component';
 import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-teste/lista-plano-de-teste/lista-plano-de-teste.component';
+import { CrudOutletComponent } from './components/crud-outlet/crud-outlet.component';
+import { CadastrarFornecedorComponent } from './pages/empresa/fornecedor/cadastrar-fornecedor/cadastrar-fornecedor.component';
 
 
 
@@ -71,7 +77,6 @@ import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-test
     HomeComponent,
     FooterComponent,
     ErrorMsgComponent,
-    GerarContaDialogComponent,
     TabMenuComponent,
     CadastrarEmpresaComponent,
     ListaProdutoComponent,
@@ -84,7 +89,9 @@ import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-test
     ListaFornecedorComponent,
     ListaPlanoDeTesteComponent,
     OutletComponent,
-    TableFrontComponent
+    TableFrontComponent,
+    CrudOutletComponent,
+    CadastrarFornecedorComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +115,10 @@ import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-test
     BreadcrumbModule,
     MenuModule,
     TabMenuModule,
-    DropdownModule
+    DropdownModule,
+    MenubarModule,
+    TieredMenuModule,
+    PubSubModule.forRoot()
   ],
   providers: [
     {

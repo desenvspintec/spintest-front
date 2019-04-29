@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContaSaidaService } from './conta-saida.service';
+import { PassoTesteService } from './passo-teste.service';
 
-describe('ContaSaidaService', () => {
+describe('PassoTesteService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ContaSaidaService = TestBed.get(ContaSaidaService);
+    const service: PassoTesteService = TestBed.get(PassoTesteService);
     expect(service).toBeTruthy();
   });
 });

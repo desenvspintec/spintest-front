@@ -4,17 +4,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AgenciaService {
-
-  url = 'rs/v1/agencia';
+export class ProdutoService {
+  url = 'rs/v1/produto';
   constructor(private http: HttpClient) { }
 
-  findAll(success) {
+  findByFornecedor(id, success) {
     const observe = 'response';
-    this.http.get(this.url, { observe })
-      .subscribe(contas => {
-        success(contas.body);
+    return this.http.get(this.url + '/findbyfornecedor/'+id, { observe })
+      .subscribe(response => {
+        success(response.body);
       });
   }
-
 }

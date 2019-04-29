@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class TabMenuService {
   
   private itemsMenu = [];
-
+  private selected = {};
   constructor() { }
 
   get items() {
@@ -16,4 +16,5 @@ export class TabMenuService {
   set items(items) {
     this.itemsMenu = items;
   }
+
 }

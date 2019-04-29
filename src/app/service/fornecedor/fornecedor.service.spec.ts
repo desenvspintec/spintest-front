@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContaService } from './conta.service';
+import { FornecedorService } from './fornecedor.service';
 
-describe('ContaService', () => {
+describe('FornecedorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ContaService = TestBed.get(ContaService);
+    const service: FornecedorService = TestBed.get(FornecedorService);
     expect(service).toBeTruthy();
   });
 });

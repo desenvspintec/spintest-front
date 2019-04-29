@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { SortEvent } from 'primeng/components/common/sortevent';
 import { DatePipe } from '@angular/common';
 import { CurrencyPipe} from '@angular/common';
@@ -8,33 +8,31 @@ import { CurrencyPipe} from '@angular/common';
   templateUrl: './table-front.component.html',
   styleUrls: ['./table-front.component.css']
 })
-export class TableFrontComponent implements OnInit {
+export class TableFrontComponent implements OnInit, OnDestroy {
 
   @Input() cols: any[];
   @Input() data: any[];
   @Input() actions: any[];
+  @Output() onRowSelect = new EventEmitter<any>();
+
   dataPipe: DatePipe = new DatePipe("pt-BR");
   currencyPipe: CurrencyPipe = new CurrencyPipe("pt-BR");
   selectedData: any;
-  qtdRegistros: any = 10;
-  qtdRegistroList: any[];
 
   constructor() { }
 
   ngOnInit() {
-    this.qtdRegistroList = [
-      {
-        label: '10 registro por página',
-        value: 10
-      }, {
-        label: '20 registro por página',
-        value: 20
-      }, {
-        label: '50 registro por página',
-        value: 50
-      }
-    ]
+    this.onRowSelect.emit(undefined);
   }
+
+  ngOnDestroy(){
+ 
+  }
+
+  onRowSelectedAux(event){
+    this.onRowSelect.emit(event.data);
+  }
+
 
   getValueByField(data, field, currency) { 
     if (field && field.indexOf('\.') > -1) 

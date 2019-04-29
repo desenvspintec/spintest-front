@@ -4,19 +4,16 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ContaEntradaService {
+export class EmpresaService {
+  url = 'rs/v1/empresa';
 
-  url = 'rs/v1/contaentrada';
   constructor(private http: HttpClient) { }
 
-  depositar(deposito, success) {
+  findAll(success) {
     const observe = 'response';
-    this.http.post(this.url,
-      deposito,
-      { observe })
-      .subscribe(() => {
-        success();
-      })
+    return this.http.get(this.url, { observe })
+    .subscribe(response => {
+      success(response.body);
+    });
   }
-
 }

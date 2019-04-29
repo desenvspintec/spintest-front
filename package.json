@@ -1,10 +1,10 @@
 {
-  "name": "banco-front",
+  "name": "spintest-front",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --base-href=/banco/",
-    "build": "ng build --aot --baseHref=/banco/ --prod --watch=false",
+    "start": "ng serve --base-href=/spintest/",
+    "build": "ng build --aot --baseHref=/spintest/ --prod --watch=false",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@types/jquery": "^3.3.29",
+    "angular7-pubsub": "^2.1.1",
     "core-js": "^2.5.4",
     "font-awesome": "4.7.0",
     "keycloak-angular": "^5.1.0",

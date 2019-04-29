@@ -13,7 +13,7 @@ export const environment = {
     dotaImages:
       'https://cdn-keycloak-angular.herokuapp.com/assets/images/dota-heroes/'
   },
-  apis: { dota: 'http://54.202.0.205:8080/banco/rs/' },
+  apis: { dota: 'http://54.202.0.205:8080/spintest/rs/' },
   keycloak: keycloakConfig
 };
 

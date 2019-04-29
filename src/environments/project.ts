@@ -8,6 +8,10 @@ import { ListaProjetoDeTesteComponent } from 'src/app/pages/projeto-de-teste/lis
 import { ListaPlanoDeTesteComponent } from 'src/app/pages/plano-de-teste/plano-de-teste/lista-plano-de-teste/lista-plano-de-teste.component';
 import { CadastrarEmpresaComponent } from 'src/app/pages/empresa/empresa/cadastrar-empresa/cadastrar-empresa.component';
 import { OutletComponent } from 'src/app/components/outlet/outlet.component';
+import { CrudOutletComponent } from 'src/app/components/crud-outlet/crud-outlet.component';
+import { CadastrarFornecedorComponent } from 'src/app/pages/empresa/fornecedor/cadastrar-fornecedor/cadastrar-fornecedor.component';
+import { CadastrarProdutoComponent } from 'src/app/pages/empresa/produto/cadastrar-produto/cadastrar-produto.component';
+import { CadastrarFuncionalidadeComponent } from 'src/app/pages/empresa/funcionalidade/cadastrar-funcionalidade/cadastrar-funcionalidade.component';
 
 
 
@@ -57,17 +61,51 @@ export const Project = {
                         {
                             label: 'Empresa',
                             path: 'emp',
-                            routerLink: 'emp',
+                            routerLink: 'emp/listaempresa',
                             component: OutletComponent,
+                            crud: true,
                             children: [
-                                { label: 'Lista de Empresas', routerLink: 'listaempresa', path: 'listaempresa', component: ListaEmpresaComponent },
-                                { label: 'Cadastro Empresa', routerLink: 'cadastroempresa', path: 'cadastroempresa', component: CadastrarEmpresaComponent },
+                                { label: 'Lista de Empresas', routerLink: 'listaempresa', path: 'listaempresa', component: ListaEmpresaComponent, crudList: true },
+                                { label: 'Cadastro Empresa', routerLink: 'cadastroempresa', path: 'cadastroempresa', component: CadastrarEmpresaComponent, crudForm: true },
                                 { path: '**', pathMatch: 'full', redirectTo: 'listaempresa' }
                             ]
                         },
-                        { label: 'Fornecedores', routerLink: 'listafornecedor', path: 'listafornecedor', component: ListaFornecedorComponent },
-                        { label: 'Produtos', routerLink: 'listaproduto', path: 'listaproduto', component: ListaProdutoComponent },
-                        { label: 'Funcionalidades', routerLink: 'listafuncionalidade', path: 'listafuncionalidade', component: ListaFuncionalidadeComponent },
+                        { 
+                            label: 'Fornecedores', 
+                            routerLink: 'fornec', 
+                            path: 'fornec', 
+                            component: OutletComponent,
+                            crud: true,
+                            children: [
+                                {label: 'Lista Fornecedores', routerLink: 'listafornecedor', path: 'listafornecedor',component: ListaFornecedorComponent , crudList: true },
+                                {label: 'Cadastro Fornecedor', routerLink: 'cadastrofornecedor', path: 'cadastrofornecedor',component: CadastrarFornecedorComponent , crudForm: true },
+                                {path: '**', pathMatch: 'full', redirectTo: 'listafornecedor' } 
+                            ]
+                        },
+                        { 
+                            label: 'Produtos', 
+                            routerLink: 'prod', 
+                            path: 'prod', 
+                            component: OutletComponent,
+                            crud: true,
+                            children: [
+                                {label: 'Lista Produtos', routerLink: 'listaproduto', path: 'listaproduto', component: ListaProdutoComponent , crudList: true},
+                                {label: 'Cadastro Produto', routerLink: 'cadastroproduto', path: 'cadastroproduto', component: CadastrarProdutoComponent , crudForm: true },
+                                {path: '**', pathMatch: 'full', redirectTo: 'listaproduto' } 
+                            ] 
+                        },
+                        { 
+                            label: 'Funcionalidades', 
+                            routerLink: 'func', 
+                            path: 'func', 
+                            component: ListaFuncionalidadeComponent,
+                            crud: true,
+                            children: [
+                                {label: 'Lista Funcionalidades', routerLink: 'listafuncionalidade', path: 'listafuncionalidade', component: ListaFuncionalidadeComponent , crudList: true},
+                                {label: 'Cadastro Funcionalidade', routerLink: 'cadastrofuncionalidade', path: 'cadastrofuncionalidade', component: CadastrarFuncionalidadeComponent , crudForm: true},
+                                {path: '**', pathMatch: 'full', redirectTo: 'listafuncionalidade' } 
+                            ] 
+                        },
                         { path: '**', pathMatch: 'full', redirectTo: 'emp' }
                     ],
                 },

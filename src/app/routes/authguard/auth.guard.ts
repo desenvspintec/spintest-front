@@ -5,7 +5,6 @@ import { environment } from '../../../environments/environment';
 import { BreadcrumbService } from 'src/app/components/services/breadcrumb/breadcrumb.service';
 import { Project } from 'src/environments/project';
 import { TabMenuService } from 'src/app/components/services/tab-menu/tab-menu.service';
-import { TabMenuComponent } from 'src/app/components/template/tab-menu/tab-menu.component';
 
 
 @Injectable()
@@ -20,7 +19,9 @@ export class AuthGuard extends KeycloakAuthGuard {
   isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       this.setBreadCrumb(route);
+      this.setCrud(route);
       this.setTabMenu(route);
+
       if (environment.production) {
         if (!this.authenticated) {
           this.keycloakAngular.login();
@@ -54,24 +55,59 @@ export class AuthGuard extends KeycloakAuthGuard {
     route.pathFromRoot.forEach(path => {
       Project.pages.forEach(page => {
         if (path.routeConfig) {
-          
-          this.setTabMenuPage(page,path.routeConfig.path);
+
+          this.setTabMenuPage(null, page, path.routeConfig.path);
         }
       });
     });
-    
   }
 
-  setTabMenuPage(page, path) {
-    if (page.path === path && page.tabMenu && page.children) {
-      console.log(page.children);
-      this.tabMenuService.items = page.children.filter(pg =>{
-        return pg.label;
+  setTabMenuPage(beforePage, page, path) {
+    if (page.path === path) {
+
+      if (page.children && page.tabMenu) {
+        this.tabMenuService.items = page.children.filter(pg => {
+          return pg.label;
+        });
+      }
+
+    }
+
+    if (page.children) {
+      page.children.forEach(subpage => {
+        this.setTabMenuPage(page, subpage, path);
       });
     }
-    if (page.children){
-      page.children.forEach(subpage =>{
-        this.setTabMenuPage(subpage,path);
+  }
+
+  setCrud(route: ActivatedRouteSnapshot) {
+    route.pathFromRoot.forEach(path => {
+      Project.pages.forEach(page => {
+        if (path.routeConfig) {
+
+          this.setCrudPage(null, page, path.routeConfig.path);
+        }
+      });
+    });
+  }
+
+  setCrudPage(beforePage, page, path) {
+    if (page.path === path) {
+
+      if (beforePage) {
+        let routerLink = beforePage.path + '/';
+        if (page.crudForm && beforePage.crud) {
+          routerLink += page.path;
+          beforePage.routerLink = routerLink;
+          console.log(routerLink);
+        }
+      }
+
+    }
+
+    if (page.children) {
+      page.children.forEach(subpage => {
+        this.setCrudPage(page, subpage, path);
       });
     }
   }
@@ -83,10 +119,6 @@ export class AuthGuard extends KeycloakAuthGuard {
     let menu = JSON.parse(JSON.stringify(Project.menu));
     route.pathFromRoot.forEach(path => {
       if (path.routeConfig) {
-        /*menu.items.forEach(item => {
-          this.setBreadCrumbMenu(item, path.routeConfig.path);
-        });*/
-
         pages.forEach(page => {
           this.setBreadCrumbPage(page, path.routeConfig.path);
         });
@@ -95,7 +127,7 @@ export class AuthGuard extends KeycloakAuthGuard {
   }
 
   setBreadCrumbMenu(menu, path) {
-    if (menu.label && menu.routerLink === path) {
+    if (menu.label && menu.path === path) {
       this.breadcrumbService.items.push(menu);
     }
     if (menu.items) {
@@ -106,7 +138,7 @@ export class AuthGuard extends KeycloakAuthGuard {
   }
 
   setBreadCrumbPage(page, path) {
-    if (page.label && page.routerLink === path) {
+    if (page.label && page.path === path) {
       this.breadcrumbService.items.push(page);
     }
     if (page.children) {

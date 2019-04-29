@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GerarContaDialogComponent } from './gerar-conta-dialog.component';
+import { CrudOutletComponent } from './crud-outlet.component';
 
-describe('GerarContaDialogComponent', () => {
-  let component: GerarContaDialogComponent;
-  let fixture: ComponentFixture<GerarContaDialogComponent>;
+describe('CrudOutletComponent', () => {
+  let component: CrudOutletComponent;
+  let fixture: ComponentFixture<CrudOutletComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GerarContaDialogComponent ]
+      declarations: [ CrudOutletComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GerarContaDialogComponent);
+    fixture = TestBed.createComponent(CrudOutletComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
