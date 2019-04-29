@@ -62,6 +62,7 @@ import { ListaFornecedorComponent } from './pages/empresa/fornecedor/lista-forne
 import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-teste/lista-plano-de-teste/lista-plano-de-teste.component';
 import { CrudOutletComponent } from './components/crud-outlet/crud-outlet.component';
 import { CadastrarFornecedorComponent } from './pages/empresa/fornecedor/cadastrar-fornecedor/cadastrar-fornecedor.component';
+import { CadastrarPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-teste/cadastrar-plano-de-teste/cadastrar-plano-de-teste.component';
 
 
 
@@ -91,7 +92,8 @@ import { CadastrarFornecedorComponent } from './pages/empresa/fornecedor/cadastr
     OutletComponent,
     TableFrontComponent,
     CrudOutletComponent,
-    CadastrarFornecedorComponent
+    CadastrarFornecedorComponent,
+    CadastrarPlanoDeTesteComponent
   ],
   imports: [
     BrowserModule,
