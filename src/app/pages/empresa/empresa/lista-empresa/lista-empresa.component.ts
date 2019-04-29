@@ -34,6 +34,10 @@ export class ListaEmpresaComponent implements OnInit {
 
   }
 
+  doubleClick(data){
+    
+  }
+
   onRowSelect(data){ 
     this.pubsub.$pub(Channels.pages.cadastro.empresa.fornecedor.lista_fornecedor.set_empresa,data);
   }

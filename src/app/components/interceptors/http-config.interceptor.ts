@@ -11,11 +11,13 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LoadingService } from '../services/loading-service/loading.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
 
-constructor(private loadingService: LoadingService){}
+    constructor(private loadingService: LoadingService,
+        private messageService: MessageService) { }
 
     public intercept(
         request: HttpRequest<any>,
@@ -27,6 +29,9 @@ constructor(private loadingService: LoadingService){}
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.loadingService.stopLoading();
+                } else if (event instanceof HttpErrorResponse) {
+                    this.loadingService.stopLoading();
+                    this.messageService.add({ severity: 'error', detail: 'Erro de comunicação, tente novamente mais tarde!' });
                 }
                 return event;
             }));
