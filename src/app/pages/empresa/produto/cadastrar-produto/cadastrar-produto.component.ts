@@ -49,7 +49,7 @@ export class CadastrarProdutoComponent implements OnInit {
     this.router.navigate(['cadastro/empresa/prod/listaproduto']);
   }
 
-  salvar(event) {
+  salvar() {
     if (this.form.invalid)
     return;
   let fornec = this.form.value;

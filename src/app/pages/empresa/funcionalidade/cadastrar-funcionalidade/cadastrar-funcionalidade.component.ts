@@ -26,7 +26,7 @@ export class CadastrarFuncionalidadeComponent implements OnInit {
     this.router.navigate(['cadastro/empresa/func/listafuncionalidade']);
   }
 
-  salvar(event) {
+  salvar() {
 
   }
 

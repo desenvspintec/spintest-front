@@ -42,7 +42,7 @@ export class CadastrarEmpresaComponent implements OnInit {
     this.router.navigate(['cadastro/empresa/emp/listaempresa']);
   }
 
-  salvar(event) {
+  salvar() {
     if (this.form.invalid)
       return;
 

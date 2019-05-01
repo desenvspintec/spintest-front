@@ -83,7 +83,7 @@ export class CadastrarFornecedorComponent implements OnInit {
     });
   }
 
-  salvar(event) {
+  salvar() {
     if (this.form.invalid)
       return;
     let fornec = this.form.value;

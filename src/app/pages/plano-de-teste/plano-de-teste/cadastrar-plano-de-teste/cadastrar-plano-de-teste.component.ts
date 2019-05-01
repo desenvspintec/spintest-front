@@ -37,7 +37,7 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
     this.router.navigate(['planejamento/planodeteste/plteste/listaplanodeteste']);
   }
 
-  salvar(event) {
+  salvar() {
     if (this.form.invalid)
       return;
 
