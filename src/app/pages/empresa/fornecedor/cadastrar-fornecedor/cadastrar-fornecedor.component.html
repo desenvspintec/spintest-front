@@ -1,3 +1,105 @@
-<p>
-  cadastrar-fornecedor works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar()" class="layout-form-page">
+  <app-form  (voltar)="voltar($event)" [title]="form.value.nome">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="descricao">Descrição</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="descricao" type="text" placeholder="Descrição" pInputText formControlName="descricao">
+            <app-error-msg [control]="form.get('descricao')" label="Descrição"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="cep">CEP</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="cep" type="text" placeholder="CEP" pInputText formControlName="cep">
+            <app-error-msg [control]="form.get('cep')" label="CEP"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="endereco">Endereço</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="endereco" type="text" placeholder="Endereço" pInputText formControlName="endereco">
+            <app-error-msg [control]="form.get('endereco')" label="Endereço"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="enderecoNumero">N°</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="enderecoNumero" type="text" placeholder="N°" pInputText formControlName="enderecoNumero">
+            <app-error-msg [control]="form.get('enderecoNumero')" label="N°"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="bairro">Bairro</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="bairro" type="text" placeholder="Bairro" pInputText formControlName="bairro">
+            <app-error-msg [control]="form.get('bairro')" label="Bairro"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="complemento">Complemento</label>
+          <div class="u-inputgroup input-group  ">
+            <input id="complemento" type="text" placeholder="Complemento" pInputText formControlName="complemento">
+            <app-error-msg [control]="form.get('complemento')" label="Complemento"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="cidadeId">Cidade</label>
+          <div class="u-inputgroup input-group  ">
+            <p-autoComplete formControlName="cidadeId" field="nome" [suggestions]="cidadesAutoComple"
+              placeholder="Cidade" (completeMethod)="localizarCidades($event)"></p-autoComplete>
+            <app-error-msg [control]="form.get('cidadeId')" label="Cidade"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="situacao">Situação</label>
+          <div class="u-inputgroup input-group  ">
+            <p-checkbox name="situacao" binary="true" [formControl]="form.controls['situacao']"></p-checkbox>
+            <app-error-msg [control]="form.get('situacao')" label="Descrição"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </app-form>
+</form>

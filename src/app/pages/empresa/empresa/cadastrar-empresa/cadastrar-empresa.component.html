@@ -1,3 +1,16 @@
-<p>
-  cadastrar-empresa works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar()" class="layout-form-page">
+  <app-form  (voltar)="voltar($event)" [title]="form.value.nome">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="nome">Nome</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="nome" type="text" placeholder="Nome" pInputText formControlName="nome">
+            <app-error-msg [control]="form.get('nome')" label="Nome"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-form>
+</form>

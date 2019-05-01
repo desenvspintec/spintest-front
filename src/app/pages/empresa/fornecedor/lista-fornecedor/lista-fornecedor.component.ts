@@ -1,28 +1,29 @@
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { PubSubService } from 'angular7-pubsub';
+import { Component, OnInit } from '@angular/core';
 import { Channels } from '../../../../../environments/channels';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FornecedorService } from 'src/app/service/fornecedor/fornecedor.service';
+import { DataService } from 'src/app/components/services/data-service/data.service';
 
 @Component({
   selector: 'app-lista-fornecedor',
   templateUrl: './lista-fornecedor.component.html',
   styleUrls: ['./lista-fornecedor.component.css']
 })
-export class ListaFornecedorComponent implements OnInit, OnDestroy {
+export class ListaFornecedorComponent implements OnInit {
 
   data: any[];
   cols: any[];
   actions: any[];
   empresa: any;
-  setEmpresaSub: Subscription;
+  title: any;
+  selectedData: any;
+  channel = Channels.pages.cadastro.empresa.fornecedor;
 
-  constructor(private pubsub: PubSubService,
-    private router: Router,
+  constructor(private router: Router,
     private messageService: MessageService,
-    private fornecedorService: FornecedorService) { }
+    private fornecedorService: FornecedorService,
+    private dataService: DataService) { }
 
   ngOnInit() {
 
@@ -32,39 +33,17 @@ export class ListaFornecedorComponent implements OnInit, OnDestroy {
       { field: 'telFixo', header: 'Tel. Fixo', style: 'text-align: right;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: center;' },
     ];
-    this.actions = [
-      {
-        label: 'Alterar',
-        icon: 'pi pi-pencil',
-        command: this.alterar
-      }
-    ]
 
-    this.setEmpresaSub = this.pubsub.$sub(Channels.pages.cadastro.empresa.fornecedor.lista_fornecedor.set_empresa, empresa => {
-      this.empresa = empresa;
+    this.actions = [];
+    this.empresa = this.dataService.getData(Channels.pages.cadastro.empresa.empresa);
+    this.title = this.empresa.nome;
+    this.fornecedorService.findByEmpresaId(this.empresa.id, fornecedores => {
+      this.data = fornecedores;
     });
-
-    if (!this.empresa || this.empresa === {}) {
-      this.messageService.add({ severity: 'error', detail: 'Selecione uma empresa!' });
-      this.router.navigate(['cadastro/empresa/emp/listaempresa']);
-    } else {
-      this.fornecedorService.findByEmpresaId(this.empresa.id, fornecedores => {
-        this.data = fornecedores;
-      });
-    }
-
   }
 
-  onRowSelectAux(data) {
-    this.pubsub.$pub(Channels.pages.cadastro.empresa.produto.lista_produto.set_fornecedor, data);
-  }
-
-  ngOnDestroy() {
-    this.setEmpresaSub.unsubscribe();
-  }
-
-  alterar(registroSelecionado) {
-    this.router.navigate(['cadastro/empresa/fornec/cadastrofornecedor']);
+  tableDoubleClick(event) {
+    this.router.navigate(['cadastro/empresa/prod/listaproduto']);
   }
 
 }

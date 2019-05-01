@@ -3,25 +3,32 @@ export const Channels = {
 
         cadastro: {
             empresa: {
-                fornecedor: {
-                    lista_fornecedor: {
-                        set_empresa: 'pages.cadastro.empresa.fornecedor.lista_fornecedor.set_empresa'
-                    }
-                },
+                empresa: 'pages.cadastro.empresa.empresa',
 
-                produto: {
-                    lista_produto: {
-                        set_fornecedor: 'pages.cadastro.empresa.produto.lista_produto.set_fornecedor'
-                    }
-                },
-                
-                funcionalidade: {
-                    lista_funcionalidade: {
-                        set_produto: 'pages.cadastro.empresa.funcionalidade.lista_funcionalidade.set_produto'
-                    }
-                }
+                fornecedor: 'pages.cadastro.empresa.fornecedor',
+
+                produto: 'pages.cadastro.empresa.produto',
+
+                funcionalidade: 'pages.cadastro.empresa.funcionalidade'
+            },
+            projeto_de_teste: {
+                projeto_de_teste : 'pages.cadastro.projeto_de_teste.projeto_de_teste',
+
+                caso_de_teste : 'pages.cadastro.projeto_de_teste.caso_de_teste',
+
+                passo_de_teste : 'pages.cadastro.projeto_de_teste.passo_de_teste',
+
+                suite_de_teste : 'pages.cadastro.projeto_de_teste.suite_de_teste'
+            }
+        },
+        planejamento: {
+            plano_de_teste :{
+                plano_de_teste :  'pages.planejamento.plano_de_teste.baseline',
+
+                baseline :  'pages.planejamento.plano_de_teste.baseline'
             }
         }
+
 
     }
 }

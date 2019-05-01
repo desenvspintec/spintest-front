@@ -1,7 +1,20 @@
-<p-table [columns]=cols [value]=data selectionMode="single" (sortFunction)="tableSort($event)" [customSort]="true"
-  [(selection)]="selectedData" [paginator]="true" [rows]="10" [responsive]="true" styleClass="layout-table"
-  (onRowSelect)="onRowSelectedAux($event)">
+<p-table #tt [columns]=cols [value]=data selectionMode="single" (sortFunction)="tableSort($event)" [customSort]="true"
+  [(selection)]="selectedData" [paginator]="true" [rows]="10" [responsive]="true" styleClass="layout-table" (onRowSelect)="onRowSelect($event)">
 
+  <ng-template pTemplate="caption">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-3" style="font-size: 18px; text-align: left;">
+        {{title}}
+      </div>
+      <div class="ui-g-12 ui-md-9">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText style="max-width: 80% !important" placeholder="Filtrar"
+          (input)="tt.filterGlobal($event.target.value, 'contains')">
+        <p-button label="Novo" (onClick)="novoClickAux($event)" icon="pi pi-plus" style="margin-left: 10px"></p-button>
+      </div>
+    </div>
+
+  </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns" style="text-align: left" [pSortableColumn]="col.field">{{col.header}}
@@ -11,13 +24,13 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-data let-columns="columns" let-rowIndex="rowIndex">
-    <tr [pSelectableRow]="data">
+    <tr [(pSelectableRow)]="data" (dblclick)="tableDoubleClickAux($event)">
       <td *ngFor="let col of columns" [style]="!col.style ? 'text-align: left;' : col.style " [class]="col.class">
         {{getValue(data,col)}} </td>
       <td style="text-align: center">
         <p-menu #menu [popup]="true" [model]="actions"></p-menu>
         <button type="button" pButton icon="pi pi-bars" label="Ações" class="ui-button-raised ui-button-secondary"
-          (click)="menu.toggle($event)"></button>
+          (click)="selectedData = data;menu.toggle($event);"></button>
       </td>
 
     </tr>

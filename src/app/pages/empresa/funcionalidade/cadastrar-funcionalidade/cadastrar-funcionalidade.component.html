@@ -1,3 +1,7 @@
-<p>
-  cadastrar-funcionalidade works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar()" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [title]="form.value.nome">
+
+
+
+  </app-form>
+</form>

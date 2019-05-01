@@ -14,7 +14,7 @@ export class TabMenuComponent implements OnInit {
   constructor(public tabMenuService: TabMenuService) { }
 
   ngOnInit() {
-    
+ 
   }
 
 }

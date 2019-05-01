@@ -165,12 +165,28 @@ li.ui-tabmenuitem {
         }
     }
 
+    .layout-form-page {
+        height: 94%;
+
+        .layout-panel-page {
+            height: 94%;
+        }
+    }
     .layout-table {
         height: 90%;
         position: inherit;
 
+        .ui-table-caption {
+
+            .ui-button {
+                background-color: #3c8dbc;
+                border: #3c8dbc;
+                text-align: right;
+            }
+        }
+        
         .ui-table-wrapper {
-            height: 100%;
+            height: 92%;
             border-left: 1px solid #c8c8c8 ;
             border-right: 1px solid #c8c8c8 ;
 

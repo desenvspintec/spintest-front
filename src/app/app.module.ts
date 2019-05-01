@@ -23,6 +23,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { CheckboxModule } from 'primeng/checkbox';
 
 // app components
 import { AppComponent } from './app.component';
@@ -55,14 +56,25 @@ import { ListaProdutoComponent } from './pages/empresa/produto/lista-produto/lis
 import { CadastrarProdutoComponent } from './pages/empresa/produto/cadastrar-produto/cadastrar-produto.component';
 import { ListaFuncionalidadeComponent } from './pages/empresa/funcionalidade/lista-funcionalidade/lista-funcionalidade.component';
 import { CadastrarFuncionalidadeComponent } from './pages/empresa/funcionalidade/cadastrar-funcionalidade/cadastrar-funcionalidade.component';
-import { ListaProjetoDeTesteComponent } from './pages/projeto-de-teste/lista-projeto-de-teste/lista-projeto-de-teste.component';
-import { CadastrarProjetoDeTesteComponent } from './pages/projeto-de-teste/cadastrar-projeto-de-teste/cadastrar-projeto-de-teste.component';
 import { ListaEmpresaComponent } from './pages/empresa/empresa/lista-empresa/lista-empresa.component';
 import { ListaFornecedorComponent } from './pages/empresa/fornecedor/lista-fornecedor/lista-fornecedor.component';
 import { ListaPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-teste/lista-plano-de-teste/lista-plano-de-teste.component';
 import { CrudOutletComponent } from './components/crud-outlet/crud-outlet.component';
 import { CadastrarFornecedorComponent } from './pages/empresa/fornecedor/cadastrar-fornecedor/cadastrar-fornecedor.component';
 import { CadastrarPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-teste/cadastrar-plano-de-teste/cadastrar-plano-de-teste.component';
+import { FormComponent } from './components/template/form/form.component';
+import { ProjetoDeTesteComponent } from './pages/projeto-de-teste/projeto-de-teste/projeto-de-teste.component';
+import { CadastrarCasoDeTesteComponent } from './pages/projeto-de-teste/caso-de-teste/cadastrar-caso-de-teste/cadastrar-caso-de-teste.component';
+import { ListaCasoDeTesteComponent } from './pages/projeto-de-teste/caso-de-teste/lista-caso-de-teste/lista-caso-de-teste.component';
+import { CadastrarPassoDeTesteComponent } from './pages/projeto-de-teste/passo-de-teste/cadastrar-passo-de-teste/cadastrar-passo-de-teste.component';
+import { ListaPassoDeTesteComponent } from './pages/projeto-de-teste/passo-de-teste/lista-passo-de-teste/lista-passo-de-teste.component';
+import { ListaProjetoDeTesteComponent } from './pages/projeto-de-teste/projeto-de-teste/lista-projeto-de-teste/lista-projeto-de-teste.component';
+import { CadastrarProjetoDeTesteComponent } from './pages/projeto-de-teste/projeto-de-teste/cadastrar-projeto-de-teste/cadastrar-projeto-de-teste.component';
+import { CadastrarSuiteDeTesteComponent } from './pages/projeto-de-teste/suite-de-teste/cadastrar-suite-de-teste/cadastrar-suite-de-teste.component';
+import { ListaSuiteDeTesteComponent } from './pages/projeto-de-teste/suite-de-teste/lista-suite-de-teste/lista-suite-de-teste.component';
+import { DashboardComponent } from './pages/dashboard/dashboard/dashboard/dashboard.component';
+import { CadastrarBaselineComponent } from './pages/plano-de-teste/baseline/cadastrar-baseline/cadastrar-baseline.component';
+import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-baseline/lista-baseline.component';
 
 
 
@@ -84,8 +96,6 @@ import { CadastrarPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-
     CadastrarProdutoComponent,
     ListaFuncionalidadeComponent,
     CadastrarFuncionalidadeComponent,
-    ListaProjetoDeTesteComponent,
-    CadastrarProjetoDeTesteComponent,
     ListaEmpresaComponent,
     ListaFornecedorComponent,
     ListaPlanoDeTesteComponent,
@@ -93,7 +103,20 @@ import { CadastrarPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-
     TableFrontComponent,
     CrudOutletComponent,
     CadastrarFornecedorComponent,
-    CadastrarPlanoDeTesteComponent
+    CadastrarPlanoDeTesteComponent,
+    FormComponent,
+    ProjetoDeTesteComponent,
+    CadastrarCasoDeTesteComponent,
+    ListaCasoDeTesteComponent,
+    CadastrarPassoDeTesteComponent,
+    ListaPassoDeTesteComponent,
+    ListaProjetoDeTesteComponent,
+    CadastrarProjetoDeTesteComponent,
+    CadastrarSuiteDeTesteComponent,
+    ListaSuiteDeTesteComponent,
+    DashboardComponent,
+    CadastrarBaselineComponent,
+    ListaBaselineComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +143,7 @@ import { CadastrarPlanoDeTesteComponent } from './pages/plano-de-teste/plano-de-
     DropdownModule,
     MenubarModule,
     TieredMenuModule,
+    CheckboxModule,
     PubSubModule.forRoot()
   ],
   providers: [

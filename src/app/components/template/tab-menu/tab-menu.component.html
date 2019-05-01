@@ -1,2 +1,2 @@
-<p-tabMenu class="layout-tab-menu" [model]="tabMenuService.items"></p-tabMenu>
+<p-tabMenu class="layout-tab-menu" [model]="tabMenuService.items" *ngIf="tabMenuService.visible"></p-tabMenu>
 <router-outlet></router-outlet>

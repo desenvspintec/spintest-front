@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 export class TabMenuService {
   
   private itemsMenu = [];
-  private selected = {};
+  private isVisible = true;
+
   constructor() { }
 
   get items() {
@@ -15,6 +16,14 @@ export class TabMenuService {
 
   set items(items) {
     this.itemsMenu = items;
+  }
+
+  get visible(){
+    return this.isVisible; 
+  }
+
+  set visible(visible){
+    this.isVisible = visible;
   }
 
 }

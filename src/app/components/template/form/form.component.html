@@ -1,0 +1,23 @@
+
+  <p-panel styleClass="layout-panel-page">
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">{{title}}</span>
+        <button pButton type="button" label="Voltar" icon="pi pi-angle-left" class="ui-button-secondary"
+          (click)="voltarAux($event)" style="float:right"></button>
+        <button pButton type="submit" label="Salvar" icon="pi pi-check" class="ui-button-success"
+          style="float:right"></button>
+      </div>
+    </p-header>
+
+    <ng-content></ng-content>
+
+    <p-footer>
+      <div class="ui-helper-clearfix">
+        <button pButton type="button" label="Voltar" icon="pi pi-angle-left" class="ui-button-secondary"
+          (click)="voltarAux($event)" style="float:right"></button>
+        <button pButton type="button" label="Salvar" icon="pi pi-check" class="ui-button-success" type="submit"
+          style="float:right"></button>
+      </div>
+    </p-footer>
+  </p-panel>

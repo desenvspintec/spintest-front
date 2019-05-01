@@ -10,7 +10,15 @@ export class FornecedorService {
 
   findByEmpresaId(id, success) {
     const observe = 'response';
-    return this.http.get(this.url + '/findbyempresa/'+id, { observe })
+    return this.http.get(this.url + '/findbyempresa/' + id, { observe })
+      .subscribe(response => {
+        success(response.body);
+      });
+  }
+
+  save(body, success) {
+    const observe = 'response';
+    this.http.post(this.url, body, { observe })
       .subscribe(response => {
         success(response.body);
       });

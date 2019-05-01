@@ -16,4 +16,12 @@ export class EmpresaService {
       success(response.body);
     });
   }
+
+  save(body, success) {
+    const observe = 'response';
+    this.http.post(this.url, body, { observe })
+      .subscribe(response => {
+        success(response.body);
+      });
+  }
 }

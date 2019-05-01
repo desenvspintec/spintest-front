@@ -1,2 +1,4 @@
-<app-table-front [cols]="cols" [data]="data" [actions]="actions" (onRowSelect)="onRowSelect($event)">
+<app-table-front [cols]="cols" [data]="data" [actions]="actions" [title]="title"
+    (tableDoubleClick)="tableDoubleClick($event)" [chanelSelected]="channel"
+    editUrl="cadastro/empresa/emp/cadastroempresa">
 </app-table-front>

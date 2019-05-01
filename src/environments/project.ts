@@ -1,50 +1,34 @@
 import { TesteComponent } from 'src/app/pages/teste/teste.component';
 import { TabMenuComponent } from 'src/app/components/template/tab-menu/tab-menu.component';
-import { ListaEmpresaComponent } from 'src/app/pages/empresa/empresa/lista-empresa/lista-empresa.component';
-import { ListaFornecedorComponent } from 'src/app/pages/empresa/fornecedor/lista-fornecedor/lista-fornecedor.component';
-import { ListaProdutoComponent } from 'src/app/pages/empresa/produto/lista-produto/lista-produto.component';
-import { ListaFuncionalidadeComponent } from 'src/app/pages/empresa/funcionalidade/lista-funcionalidade/lista-funcionalidade.component';
-import { ListaProjetoDeTesteComponent } from 'src/app/pages/projeto-de-teste/lista-projeto-de-teste/lista-projeto-de-teste.component';
-import { ListaPlanoDeTesteComponent } from 'src/app/pages/plano-de-teste/plano-de-teste/lista-plano-de-teste/lista-plano-de-teste.component';
-import { CadastrarEmpresaComponent } from 'src/app/pages/empresa/empresa/cadastrar-empresa/cadastrar-empresa.component';
 import { OutletComponent } from 'src/app/components/outlet/outlet.component';
-import { CrudOutletComponent } from 'src/app/components/crud-outlet/crud-outlet.component';
-import { CadastrarFornecedorComponent } from 'src/app/pages/empresa/fornecedor/cadastrar-fornecedor/cadastrar-fornecedor.component';
-import { CadastrarProdutoComponent } from 'src/app/pages/empresa/produto/cadastrar-produto/cadastrar-produto.component';
-import { CadastrarFuncionalidadeComponent } from 'src/app/pages/empresa/funcionalidade/cadastrar-funcionalidade/cadastrar-funcionalidade.component';
+import { EmpresaFolder } from './cadastro/empresa/empresa-folder';
+import { FornecedorFolder } from './cadastro/fornecedor/fornecedor-folder';
+import { ProdutoFolder } from './cadastro/produto-folder/produto-folder';
+import { FuncionalidadeFolder } from './cadastro/funcionalidade-folder/funcionalidade-folder';
+import { Menu } from './menu/menu';
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard/dashboard/dashboard.component';
+import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
+import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-teste';
 
 
 
 export const Project = {
-    menu: {
-        items: [{
-            label: 'Dashboard',
-            routerLink: 'dashboardmenu',
-            items: [
-                { label: 'Dashboard', icon: 'pi pi-spinner text-red', routerLink: 'dashboard' }
-            ]
-        },
-        {
-            label: 'Cadastros',
-            routerLink: 'cadastro',
-            items: [
-                { label: 'Empresa', icon: 'pi pi-th-large text-purple', routerLink: 'cadastro/empresa' },
-                { label: 'Projetos de Teste', icon: 'pi pi-sitemap', routerLink: 'projetodeteste' }
-            ]
-        }, {
-            label: 'Planejamento',
-            routerLink: 'planejamento',
-            items: [
-                { label: 'Planos de Teste', icon: 'pi pi-folder-open text-green', routerLink: 'planodeteste' }
-            ]
-        }]
-    },
+    menu: Menu,
     pages: [
         {
             label: 'Dashboard',
-            path: 'dashboard',
-            routerLink: 'dashboard',
-            component: TesteComponent,
+            path: 'dash',
+            routerLink: 'dash',
+            component: OutletComponent,
+            children: [
+                {
+                    label: 'Dashboard',
+                    path: 'dashboard',
+                    routerLink: 'dashboard',
+                    component: DashboardComponent
+                },
+                { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
+            ]
         }, {
             path: 'cadastro',
             routerLink: 'cadastro',
@@ -58,54 +42,10 @@ export const Project = {
                     component: TabMenuComponent,
                     tabMenu: true,
                     children: [
-                        {
-                            label: 'Empresa',
-                            path: 'emp',
-                            routerLink: 'emp/listaempresa',
-                            component: OutletComponent,
-                            crud: true,
-                            children: [
-                                { label: 'Lista de Empresas', routerLink: 'listaempresa', path: 'listaempresa', component: ListaEmpresaComponent, crudList: true },
-                                { label: 'Cadastro Empresa', routerLink: 'cadastroempresa', path: 'cadastroempresa', component: CadastrarEmpresaComponent, crudForm: true },
-                                { path: '**', pathMatch: 'full', redirectTo: 'listaempresa' }
-                            ]
-                        },
-                        { 
-                            label: 'Fornecedores', 
-                            routerLink: 'fornec', 
-                            path: 'fornec', 
-                            component: OutletComponent,
-                            crud: true,
-                            children: [
-                                {label: 'Lista Fornecedores', routerLink: 'listafornecedor', path: 'listafornecedor',component: ListaFornecedorComponent , crudList: true },
-                                {label: 'Cadastro Fornecedor', routerLink: 'cadastrofornecedor', path: 'cadastrofornecedor',component: CadastrarFornecedorComponent , crudForm: true },
-                                {path: '**', pathMatch: 'full', redirectTo: 'listafornecedor' } 
-                            ]
-                        },
-                        { 
-                            label: 'Produtos', 
-                            routerLink: 'prod', 
-                            path: 'prod', 
-                            component: OutletComponent,
-                            crud: true,
-                            children: [
-                                {label: 'Lista Produtos', routerLink: 'listaproduto', path: 'listaproduto', component: ListaProdutoComponent , crudList: true},
-                                {label: 'Cadastro Produto', routerLink: 'cadastroproduto', path: 'cadastroproduto', component: CadastrarProdutoComponent , crudForm: true },
-                                {path: '**', pathMatch: 'full', redirectTo: 'listaproduto' } 
-                            ] 
-                        },
-                        { 
-                            label: 'Funcionalidades', 
-                            routerLink: 'func', 
-                            path: 'func', 
-                            component: ListaFuncionalidadeComponent,
-                            crud: true,
-                            children: [
-                                {label: 'Lista Funcionalidades', routerLink: 'listafuncionalidade', path: 'listafuncionalidade', component: ListaFuncionalidadeComponent , crudList: true},
-                                {label: 'Cadastro Funcionalidade', routerLink: 'cadastrofuncionalidade', path: 'cadastrofuncionalidade', component: CadastrarFuncionalidadeComponent , crudForm: true},
-                                {path: '**', pathMatch: 'full', redirectTo: 'listafuncionalidade' } 
-                            ] 
-                        },
+                        EmpresaFolder,
+                        FornecedorFolder,
+                        ProdutoFolder,
+                        FuncionalidadeFolder,
                         { path: '**', pathMatch: 'full', redirectTo: 'emp' }
                     ],
                 },
@@ -116,15 +56,31 @@ export const Project = {
             label: 'Projetos de Teste',
             path: 'projetodeteste',
             routerLink: 'projetodeteste',
-            component: ListaProjetoDeTesteComponent,
+            component: TesteComponent,
+
         }, {
-            label: 'Planos de Teste',
-            path: 'planodeteste',
-            routerLink: 'planodeteste',
-            component: ListaPlanoDeTesteComponent,
+            label: 'Planejamento',
+            path: 'planejamento',
+            routerLink: 'planejamento',
+            component: OutletComponent,
+            children: [
+                {
+                    path: 'planodeteste',
+                    routerLink: 'planodeteste',
+                    label: 'Planos de Teste',
+                    component: TabMenuComponent,
+                    tabMenu: true,
+                    children: [
+                        PlanoDeTesteFolder,
+                        BaseLineFolder,
+                        { path: '**', pathMatch: 'full', redirectTo: 'plteste' }
+                    ],
+                },
+                { path: '**', pathMatch: 'full', redirectTo: 'planejamento' }
+            ]
         }, {
             path: '**',
-            redirectTo: 'dashboard',
+            redirectTo: 'dash',
             pathMatch: 'full'
         }
     ]

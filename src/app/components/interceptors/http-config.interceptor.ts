@@ -29,12 +29,21 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.loadingService.stopLoading();
-                } else if (event instanceof HttpErrorResponse) {
-                    this.loadingService.stopLoading();
-                    this.messageService.add({ severity: 'error', detail: 'Erro de comunicação, tente novamente mais tarde!' });
-                }
+                } 
                 return event;
-            }));
+                              
+            }),
+            catchError((error: HttpErrorResponse) => {
+
+               /* let data = {
+                    reason: error && error.error.reason ? error.error.reason : '',
+                    status: error.status
+                };*/
+                this.loadingService.stopLoading();
+                    this.messageService.add({ severity: 'error', detail: 'Erro de comunicação, tente novamente mais tarde!' });
+                return throwError(error);
+            })
+            );
 
     }
 

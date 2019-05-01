@@ -1,2 +1,3 @@
-<app-table-front [cols]="cols" [data]="data" [actions]="actions" (onRowSelect)="onRowSelectAux($event)">
+<app-table-front [title]="title" [cols]="cols" [data]="data" [actions]="actions" [chanelSelected]="channel"
+    (tableDoubleClick)="tableDoubleClick($event)"  editUrl="cadastro/empresa/fornec/cadastrofornecedor">
 </app-table-front>

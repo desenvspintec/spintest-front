@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar-funcionalidade',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastrarFuncionalidadeComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      id: [''],
+      nome: ['', Validators.required],
+
+    });
+  }
+
+  voltar(event) {
+    this.router.navigate(['cadastro/empresa/func/listafuncionalidade']);
+  }
+
+  salvar(event) {
+
   }
 
 }

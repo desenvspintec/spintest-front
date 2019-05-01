@@ -1,44 +1,85 @@
-import { Component, OnInit,OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SortEvent } from 'primeng/components/common/sortevent';
 import { DatePipe } from '@angular/common';
-import { CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import { PubSubService } from 'angular7-pubsub';
+import { DataService } from '../../services/data-service/data.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-table-front',
   templateUrl: './table-front.component.html',
   styleUrls: ['./table-front.component.css']
 })
-export class TableFrontComponent implements OnInit, OnDestroy {
+export class TableFrontComponent implements OnInit {
 
   @Input() cols: any[];
   @Input() data: any[];
   @Input() actions: any[];
-  @Output() onRowSelect = new EventEmitter<any>();
+  @Output() novoClick = new EventEmitter<any>();
+  @Output() tableDoubleClick = new EventEmitter<any>();
+  @Input() title;
+  @Input() chanelSelected;
+  @Input() editUrl;
 
   dataPipe: DatePipe = new DatePipe("pt-BR");
   currencyPipe: CurrencyPipe = new CurrencyPipe("pt-BR");
   selectedData: any;
+  @Output() selectedDataChange = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private pubSubService: PubSubService,
+    private dataService: DataService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.onRowSelect.emit(undefined);
+
+    this.actions.forEach(act => {
+      act.click = act.command;
+      act.command = this.command.bind(this);
+    });
+    this.actions.push(  {
+      label: 'Alterar',
+      icon: 'pi pi-pencil',
+      command: this.alterar.bind(this)
+    });
+    this.selectedData = this.dataService.getData(this.chanelSelected);
   }
 
-  ngOnDestroy(){
- 
+  novoClickAux(event) {
+    this.dataService.setData(this.chanelSelected, undefined);
+    this.router.navigate([this.editUrl]);
   }
 
-  onRowSelectedAux(event){
-    this.onRowSelect.emit(event.data);
+  alterar(event){
+    this.dataService.setData(this.chanelSelected, this.selectedData);
+    this.router.navigate([this.editUrl]);
+  }
+
+  onRowSelect(event) {
+    if (this.chanelSelected) {
+      this.dataService.setData(this.chanelSelected,event.data);
+    }
+  }
+
+  tableDoubleClickAux(event) {
+    this.tableDoubleClick.emit(event);
+  }
+
+  command(event) {
+    this.actions.forEach(act => {
+      if (act.label === event.item.label) {
+        act.click(this.selectedData);
+      }
+    });
   }
 
 
-  getValueByField(data, field, currency) { 
-    if (field && field.indexOf('\.') > -1) 
+  getValueByField(data, field, currency) {
+    if (field && field.indexOf('\.') > -1)
       return this.getValueByField(data[field.substring(0, field.indexOf('\.'))], field.substring(field.indexOf('\.') + 1, field.length), currency)
-    else if (field && data) 
-      return this.getValueFromData(data,field,currency) ;
+    else if (field && data)
+      return this.getValueFromData(data, field, currency);
     else
       return null;
   }
@@ -50,13 +91,13 @@ export class TableFrontComponent implements OnInit, OnDestroy {
       if (col.field && col.field.indexOf('\.') > -1)
         return this.getValueByField(data, col.field, col.currency);
       else
-        return this.getValueFromData(data, col.field, col.currency) ;
-    }    
+        return this.getValueFromData(data, col.field, col.currency);
+    }
   }
 
   getValueFromData(data, filed, currency) {
     if (currency && data)
-      return this.currencyPipe.transform(data[filed],'BRL',true).replace(/\s+/g, '.').replace('.BRL', '');
+      return this.currencyPipe.transform(data[filed], 'BRL', true).replace(/\s+/g, '.').replace('.BRL', '');
     return data[filed];
   }
 

@@ -1,3 +1,7 @@
-<p>
-  cadastrar-produto works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar()" class="layout-form-page">
+    <app-form (voltar)="voltar($event)" [title]="form.value.descricao">
+  
+  
+  
+    </app-form>
+  </form>
