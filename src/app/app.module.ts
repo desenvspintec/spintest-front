@@ -44,7 +44,7 @@ import { PubSubModule } from 'angular7-pubsub';
 import { routing } from './routes/app-route';
 
 //keycloak
-import { KeycloakService, KeycloakAngularModule, KeycloakBearerInterceptor } from 'keycloak-angular';
+import { KeycloakService, KeycloakAngularModule} from 'keycloak-angular';
 import { initializer } from './utils/app-init';
 
 //pages

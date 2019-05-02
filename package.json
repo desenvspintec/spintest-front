@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --base-href=/spintest/ --aot",
-    "build": "ng build --aot --baseHref=/spintest/ --prod --watch=false",
+    "start": "ng serve --base-href=/spintest/ --optimization=false --watch=true",
+    "build": "ng build --baseHref=/spintest/ --watch=false --prod --optimization=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

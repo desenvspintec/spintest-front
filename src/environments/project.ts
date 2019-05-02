@@ -9,6 +9,7 @@ import { Menu } from './menu/menu';
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard/dashboard/dashboard.component';
 import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
 import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-teste';
+import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
 
 
 
@@ -20,12 +21,15 @@ export const Project = {
             path: 'dash',
             routerLink: 'dash',
             component: OutletComponent,
+            canActivate: [AuthGuard],
             children: [
                 {
                     label: 'Dashboard',
                     path: 'dashboard',
                     routerLink: 'dashboard',
+                    canActivate: [AuthGuard],
                     component: DashboardComponent
+                    
                 },
                 { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
             ]
@@ -34,6 +38,7 @@ export const Project = {
             routerLink: 'cadastro',
             label: 'Cadastro',
             component: OutletComponent,
+            canActivate: [AuthGuard],
             children: [
                 {
                     path: 'empresa',
@@ -41,6 +46,7 @@ export const Project = {
                     label: 'Empresa',
                     component: TabMenuComponent,
                     tabMenu: true,
+                    canActivate: [AuthGuard],
                     children: [
                         EmpresaFolder,
                         FornecedorFolder,
@@ -56,13 +62,15 @@ export const Project = {
             label: 'Projetos de Teste',
             path: 'projetodeteste',
             routerLink: 'projetodeteste',
-            component: TesteComponent,
+            canActivate: [AuthGuard],
+            component: TesteComponent
 
         }, {
             label: 'Planejamento',
             path: 'planejamento',
             routerLink: 'planejamento',
             component: OutletComponent,
+            canActivate: [AuthGuard],
             children: [
                 {
                     path: 'planodeteste',
@@ -70,6 +78,7 @@ export const Project = {
                     label: 'Planos de Teste',
                     component: TabMenuComponent,
                     tabMenu: true,
+                    canActivate: [AuthGuard],
                     children: [
                         PlanoDeTesteFolder,
                         BaseLineFolder,

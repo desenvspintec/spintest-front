@@ -1,4 +1,4 @@
-import { Injectable, ɵConsole } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { KeycloakService, KeycloakAuthGuard } from 'keycloak-angular';
 import { environment } from '../../../environments/environment';
@@ -8,7 +8,7 @@ import { TabMenuService } from 'src/app/components/services/tab-menu/tab-menu.se
 import { DataService } from 'src/app/components/services/data-service/data.service';
 import { PubSubService } from 'angular7-pubsub';
 import { MessageService } from 'primeng/api';
-
+import { MenuItem } from 'primeng/api';
 
 @Injectable()
 export class AuthGuard extends KeycloakAuthGuard {
@@ -23,6 +23,7 @@ export class AuthGuard extends KeycloakAuthGuard {
   }
 
   isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+
     return new Promise(async (resolve, reject) => {
       this.tabMenuService.visible = false;
       this.setBreadCrumb(route);
@@ -66,17 +67,17 @@ export class AuthGuard extends KeycloakAuthGuard {
     route.pathFromRoot.forEach(path => {
       if (path.routeConfig) {
         Project.pages.forEach(page => {
-          this.clearSelectedsRecursive(null,page,path.routeConfig.path);
+          this.clearSelectedsRecursive(null, page, path.routeConfig.path);
         });
       }
     });
   }
 
-  clearSelectedsRecursive(beforePage, page, path){
+  clearSelectedsRecursive(beforePage, page, path) {
     if (page.children) {
       page.children.forEach(subpage => {
-        if (beforePage && beforePage.tabMenu && page === beforePage.children[0]){
-          this.clearSelectedsPages(path,beforePage);
+        if (beforePage && beforePage.tabMenu && page === beforePage.children[0]) {
+          this.clearSelectedsPages(path, beforePage);
         }
         this.clearSelectedsRecursive(page, subpage, path);
       });
@@ -173,7 +174,7 @@ export class AuthGuard extends KeycloakAuthGuard {
   }
 
   setTabMenu(route: ActivatedRouteSnapshot) {
-    this.tabMenuService.items = undefined;
+    this.tabMenuService.items = [];
     route.pathFromRoot.forEach(path => {
       Project.pages.forEach(page => {
         if (path.routeConfig) {
@@ -188,9 +189,9 @@ export class AuthGuard extends KeycloakAuthGuard {
     if (page.path === path) {
 
       if (page.children && page.tabMenu) {
-        this.tabMenuService.items = page.children.filter(pg => {
+        this.tabMenuService.items = this.pageListToItemList(page.children.filter(pg => {
           return pg.label;
-        });
+        }));
       }
 
     }
@@ -240,7 +241,6 @@ export class AuthGuard extends KeycloakAuthGuard {
 
     this.breadcrumbService.items = [];
     let pages = Project.pages;
-    let menu = JSON.parse(JSON.stringify(Project.menu));
     route.pathFromRoot.forEach(path => {
       if (path.routeConfig) {
         pages.forEach(page => {
@@ -250,25 +250,31 @@ export class AuthGuard extends KeycloakAuthGuard {
     });
   }
 
-  setBreadCrumbMenu(menu, path) {
-    if (menu.label && menu.path === path) {
-      this.breadcrumbService.items.push(menu);
-    }
-    if (menu.items) {
-      menu.items.forEach(submenu => {
-        this.setBreadCrumbPage(submenu, path);
-      });
-    }
-  }
-
   setBreadCrumbPage(page, path) {
     if (page.label && page.path === path) {
-      this.breadcrumbService.items.push(page);
+      this.breadcrumbService.items.push(this.pageToItem(page));
     }
     if (page.children) {
       page.children.forEach(subpage => {
         this.setBreadCrumbPage(subpage, path);
       });
     }
+  }
+
+  pageListToItemList(pages): MenuItem[] {
+    let itens: MenuItem[] = [];
+
+    pages.forEach(page => {
+      itens.push(this.pageToItem(page));
+    });
+    return itens;
+
+  }
+  pageToItem(page): MenuItem {
+    let menuItem: MenuItem = {
+      label: page.label,
+      routerLink: page.routerLink
+    }
+    return menuItem;
   }
 }

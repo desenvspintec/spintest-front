@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabMenuService } from '../../services/tab-menu/tab-menu.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-tab-menu',
@@ -9,12 +10,17 @@ import { TabMenuService } from '../../services/tab-menu/tab-menu.service';
 export class TabMenuComponent implements OnInit {
 
 
-  
+  activeItem: MenuItem;
+  @ViewChild('menuItems') menu: MenuItem[];
 
   constructor(public tabMenuService: TabMenuService) { }
 
   ngOnInit() {
  
   }
+
+  activateMenu(){
+    this.activeItem =this.menu['activeItem'];
+ }
 
 }

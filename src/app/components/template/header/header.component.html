@@ -11,6 +11,11 @@
 
       <!--<a [routerLink]="['/documentation']" class="topbar-link" (click)="template.hideMobileMenu($event)">Get Started</a>-->
       <!--<p-breadcrumb styleClass="topbar-breadcrump" [model]="breadcrumbService.items" [home]="home"></p-breadcrumb>-->
+      <span class="topbar-usuario">
+        <button type="button" pButton icon="pi pi-user" [label]="keycloakService.getUsername()" (click)="menu.toggle($event)"></button>
+        <p-menu #menu [popup]="true" [model]="itens"></p-menu>
+      </span>-
+
     </div>
 
   </div>

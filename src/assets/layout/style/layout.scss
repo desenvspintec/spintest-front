@@ -84,6 +84,27 @@ li.ui-tabmenuitem {
                 vertical-align: middle;
                 margin-left: 20px;
             }
+
+            .topbar-usuario {
+                height: 40px;
+                vertical-align: middle;
+                color: #fff;
+                font-size: 20px;
+                line-height: 50px;
+                vertical-align: middle;
+                margin-left: 20px;
+                float:right;
+
+                .ui-button {
+                    background-color: #3c8dbc;
+                    border-color: #3c8dbc;
+
+                }
+                .ui-button:hover {
+                    background-color: #3c8dbc;
+                    border-color: #3c8dbc;
+                }
+            }
     
             .menu-btn {
                 display: inline-block;

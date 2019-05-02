@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TabMenuService {
   
-  private itemsMenu = [];
+  private itemsMenu: MenuItem[] = [];
   private isVisible = true;
 
   constructor() { }
 
-  get items() {
+  get items() : MenuItem[]{
     return this.itemsMenu;
   }
 
-  set items(items) {
+  set items(items : MenuItem[]) {
     this.itemsMenu = items;
   }
 
