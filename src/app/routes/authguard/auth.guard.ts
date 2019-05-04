@@ -130,7 +130,7 @@ export class AuthGuard extends KeycloakAuthGuard {
           if (isRequiredNotOK && beforePage.required) {
             msg = this.getMsgRequired(beforePage.required.required_list);
             if (msg) {
-              this.messageService.add({ severity: 'error', detail: msg });
+              this.messageService.add({ severity: 'info', detail: msg });
             }
             this.router.navigate([isRequiredNotOK]);
           }

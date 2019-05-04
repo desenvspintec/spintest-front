@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EmpresaService } from 'src/app/service/empresa/empresa.service';
+
+// services
 import { MessageService } from 'primeng/api';
 import { DataService } from 'src/app/components/services/data-service/data.service';
+import { EmpresaService } from 'src/app/service/empresa/empresa.service';
+
+// environments
 import { Channels } from 'src/environments/channels';
 
 @Component({
@@ -13,43 +17,57 @@ import { Channels } from 'src/environments/channels';
 })
 export class CadastrarEmpresaComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
-    private router: Router,
-    private empresaService: EmpresaService,
-    private messageService: MessageService,
-    private dataService: DataService) { }
+  private _channelEmpresa = Channels.pages.cadastro.empresa.empresa;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _empresaService: EmpresaService,
+    private _messageService: MessageService,
+    private _dataService: DataService) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+
+    this.form = this._formBuilder.group({
       id: [''],
       nome: ['', Validators.required],
       createdAt: [''],
       updatedAt: ['']
     });
 
-    let empresa = this.dataService.getData(Channels.pages.cadastro.empresa.empresa);
-    if (empresa) {
-      this.form.setValue(empresa);
-    } else {
+    const empresa = this._dataService.getData(this._channelEmpresa);
+
+    if (!empresa) {
       this.form.reset();
+      return;
     }
 
+    this.form.setValue(empresa);
+
   }
 
-  voltar(event) {
-    this.router.navigate(['cadastro/empresa/emp/listaempresa']);
-  }
+  public salvar() {
 
-  salvar() {
-    if (this.form.invalid)
+    if (this.form.invalid) {
       return;
+    }
 
-    this.empresaService.save(this.form.value, empresa => {
+    this._empresaService.save(this.form.value, empresa => {
       this.form.setValue(empresa);
-      this.messageService.add({ severity: 'success', detail: 'Empresa salva com sucesso!' });
+
+      this._messageService.add({
+        severity: 'success',
+        detail: 'Empresa salva com sucesso!'
+      });
+
     });
+  }
+
+  public voltar(event) {
+    const urlBack = 'cadastro/empresa/emp/listaempresa';
+    this._router.navigate([urlBack]);
   }
 
 }

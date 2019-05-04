@@ -1,17 +1,26 @@
-import { TesteComponent } from 'src/app/pages/teste/teste.component';
+import { Menu } from './menu/menu';
+import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
+
+// Components
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard/dashboard/dashboard.component';
 import { TabMenuComponent } from 'src/app/components/template/tab-menu/tab-menu.component';
 import { OutletComponent } from 'src/app/components/outlet/outlet.component';
+
+// Empresa folders
 import { EmpresaFolder } from './cadastro/empresa/empresa-folder';
 import { FornecedorFolder } from './cadastro/fornecedor/fornecedor-folder';
 import { ProdutoFolder } from './cadastro/produto-folder/produto-folder';
 import { FuncionalidadeFolder } from './cadastro/funcionalidade-folder/funcionalidade-folder';
-import { Menu } from './menu/menu';
-import { DashboardComponent } from 'src/app/pages/dashboard/dashboard/dashboard/dashboard.component';
-import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
+
+// Projeto de teste folders
+import { ProjetoTesteFolder } from './projeto-de-teste/projeto-de-teste/projeto-de-teste';
+import { SuiteTesteFolder } from './projeto-de-teste/suite-de-teste/suite-de-teste';
+import { CasoTesteFolder } from './projeto-de-teste/caso-de-teste/caso-de-teste';
+import { PassoTesteFolder } from './projeto-de-teste/passo-de-teste/passo-de-teste';
+
+// Plano de teste folders
 import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-teste';
-import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
-
-
+import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
 
 export const Project = {
     menu: Menu,
@@ -63,7 +72,24 @@ export const Project = {
             path: 'projetodeteste',
             routerLink: 'projetodeteste',
             canActivate: [AuthGuard],
-            component: TesteComponent
+            children: [
+                {
+                    path: 'projeto',
+                    routerLink: 'projeto',
+                    label: 'Projeto',
+                    component: TabMenuComponent,
+                    tabMenu: true,
+                    canActivate: [AuthGuard],
+                    children: [
+                        ProjetoTesteFolder,
+                        SuiteTesteFolder,
+                        CasoTesteFolder,
+                        PassoTesteFolder,
+                        { path: '**', pathMatch: 'full', redirectTo: 'pro' }
+                    ],
+                },
+                { path: '**', pathMatch: 'full', redirectTo: 'projeto' }
+            ]
 
         }, {
             label: 'Planejamento',

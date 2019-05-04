@@ -16,7 +16,7 @@ export const ProdutoFolder = {
         required_list: [
             { 
                 channel: Channels.pages.cadastro.empresa.fornecedor, 
-                msg: 'Selecione um fornecedor!', 
+                msg: 'Selecione um fornecedor.', 
                 redirect: 'cadastro/empresa/fornec/listafornecedor' }
         ]
     },

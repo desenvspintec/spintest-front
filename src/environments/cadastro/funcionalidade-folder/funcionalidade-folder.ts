@@ -16,7 +16,7 @@ export const FuncionalidadeFolder = {
         required_list: [
             { 
                 channel: Channels.pages.cadastro.empresa.produto, 
-                msg: 'Selecione um produto!', 
+                msg: 'Selecione um produto.', 
                 redirect: 'cadastro/empresa/prod/listaproduto' 
             }
         ]

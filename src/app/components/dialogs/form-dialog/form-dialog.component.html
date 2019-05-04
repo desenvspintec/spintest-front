@@ -1,0 +1,9 @@
+<p-dialog [draggable]="false" [header]="title" [(visible)]="visible" [modal]="true" [responsive]="true"
+  [style]="{width: '350px', minWidth: '200px'}" [minY]="70" (onHide)="onClose.emit()" [baseZIndex]="10000">
+
+  <ng-content #dialogForm></ng-content>
+
+  <p-footer>
+    <button type="button" pButton [disabled]="form.invalid" (click)="salvar()" label="Salvar" class="ui-button-success"></button>
+  </p-footer>
+</p-dialog>

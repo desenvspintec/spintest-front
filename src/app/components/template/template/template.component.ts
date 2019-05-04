@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { LoadingService } from '../../services/loading-service/loading.service';
-import { MenuItem } from 'primeng/api';
-import { BreadcrumbService } from '../../services/breadcrumb/breadcrumb.service';
 
+// Services
+import { KeycloakService } from 'keycloak-angular';
+import { MenuItem } from 'primeng/api';
+import { LoadingService } from '../../services/loading-service/loading.service';
+import { BreadcrumbService } from '../../services/breadcrumb/breadcrumb.service';
 
 @Component({
   selector: 'app-template',
@@ -11,23 +12,22 @@ import { BreadcrumbService } from '../../services/breadcrumb/breadcrumb.service'
   styleUrls: ['./template.component.css']
 })
 export class TemplateComponent implements OnInit {
-  
-  title = 'app';
-  loading = false;
-  home: MenuItem;
 
+  public home: MenuItem;
 
-  constructor(private keycloakService: KeycloakService,
+  constructor(
+    private keycloakService: KeycloakService,
     public loadingService: LoadingService,
-    public breadcrumbService: BreadcrumbService) { }
+    public breadcrumbService: BreadcrumbService
+  ) { }
 
   ngOnInit() {
-    this.home = {icon: 'pi pi-home'};
+    this.home = { icon: 'pi pi-home' };
   }
 
   mobileMenuActive: boolean;
 
-  onMobileMenuButton (event) {
+  onMobileMenuButton(event) {
     this.mobileMenuActive = !this.mobileMenuActive;
     event.preventDefault();
   }
@@ -37,7 +37,7 @@ export class TemplateComponent implements OnInit {
     event.preventDefault();
   }
 
-  logout(event){
+  logout(event) {
     this.keycloakService.logout();
   }
 }

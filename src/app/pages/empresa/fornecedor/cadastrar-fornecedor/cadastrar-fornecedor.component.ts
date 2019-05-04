@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+// services
 import { MessageService } from 'primeng/api';
-import { DataService } from 'src/app/components/services/data-service/data.service';
-import { Channels } from 'src/environments/channels';
 import { FornecedorService } from 'src/app/service/fornecedor/fornecedor.service';
+import { FornecedorContatoService } from 'src/app/service/fornecedor_contato/fornecedor-contato.service';
+import { DataService } from 'src/app/components/services/data-service/data.service';
 import { CidadeService } from 'src/app/service/cidade/cidade.service';
 
+// environments
+import { Channels } from 'src/environments/channels';
 
 @Component({
   selector: 'app-cadastrar-fornecedor',
@@ -15,20 +19,67 @@ import { CidadeService } from 'src/app/service/cidade/cidade.service';
 })
 export class CadastrarFornecedorComponent implements OnInit {
 
-  form: FormGroup;
-  cidades: any[];
-  cidadesAutoComple: any[];
+  public formFornecedor: FormGroup;
+  public cidades: any[];
+  public cidadesAutoComple: any[];
 
-  constructor(private formBuilder: FormBuilder,
-    private router: Router,
-    private fornecedorService: FornecedorService,
-    private messageService: MessageService,
-    private dataService: DataService,
-    private cidadeService: CidadeService) { }
+  public formContato: FormGroup;
+  public dialogTitle: string;
+  public contatoSelecionado = {};
+  public contatoDialogVisible: boolean = false;
+  public contatos: any[] = [];
+
+  public cols: any[] = [];
+  public actions: any[] = [];
+
+  private _channelEmpresa: string = Channels.pages.cadastro.empresa.empresa;
+  private _channelFornecedor: string = Channels.pages.cadastro.empresa.fornecedor;
+
+  constructor(
+    private _fornecedorContatoService: FornecedorContatoService,
+    private _fornecedorService: FornecedorService,
+    private _cidadeService: CidadeService,
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _messageService: MessageService,
+    private _dataService: DataService) { }
 
   ngOnInit() {
 
-    this.form = this.formBuilder.group({
+    this.cols = [
+      { field: 'cargo', header: 'Cargo', style: 'text-align: left;' },
+      { field: 'nome', header: 'Nome', style: 'text-align: left;' },
+      { field: 'email', header: 'Email', style: 'text-align: left;' },
+      { field: 'celular', header: 'Celular', style: 'text-align: left;' },
+      { field: 'telefone', header: 'Telefone', style: 'text-align: left;' },
+      { field: 'ramal', header: 'Ramal', style: 'text-align: left;' },
+    ];
+
+    this._buildForms();
+
+    const fornecedor = this._dataService.getData(this._channelFornecedor);
+
+    if (!fornecedor) {
+      this.formFornecedor.reset();
+      return;
+    }
+
+    if (fornecedor.situacao) {
+      fornecedor.situacao = fornecedor.situacao === "ATIVO";
+    }
+
+    this._fornecedorContatoService
+      .findByFornecedorId('fornecedor.id', contatos => {
+        this.contatos = contatos || [];
+      });
+
+    this.formFornecedor.setValue(fornecedor);
+
+  }
+
+  private _buildForms(): void {
+
+    this.formFornecedor = this._formBuilder.group({
       id: [''],
       descricao: ['', Validators.required],
       telFixo: [''],
@@ -44,58 +95,142 @@ export class CadastrarFornecedorComponent implements OnInit {
       empresaId: [''],
       createdAt: [''],
       updatedAt: ['']
-
     });
 
-    let fornecedor = this.dataService.getData(Channels.pages.cadastro.empresa.fornecedor);
-    if (fornecedor) {
-      if (fornecedor.situacao) {
-        fornecedor.situacao = fornecedor.situacao === "ATIVO";
-      }
-      this.form.setValue(fornecedor);
-    } else {
-      this.form.reset();
-    }
-
+    this.formContato = this._formBuilder.group({
+      id: [''],
+      nome: ['', [Validators.required]],
+      cargo: [''],
+      telFixo: [''],
+      telCel: [''],
+      email: ['', [Validators.email]],
+      ramal: [''],
+    });
   }
 
-  voltar(event) {
-    this.router.navigate(['cadastro/empresa/fornec/listafornecedor']);
+  private _filtrarCidades(event): void {
+    this.cidadesAutoComple = this.cidades.filter(cidade => {
+      return cidade.nome.toUpperCase().indexOf(event.query.toUpperCase()) > -1
+        || ((cidade.estadoId) && ((cidade.estadoId.nome.toUpperCase().indexOf(event.query.toUpperCase()) > -1
+          || cidade.estadoId.uf.toUpperCase().indexOf(event.query.toUpperCase()) > -1)));
+    });
   }
 
-  localizarCidades(event) {
+  private _getDataWithIdsRelation(): any {
+
+    const formValue = this.formFornecedor.getRawValue();
+    const empresa = this._dataService.getData(this._channelEmpresa);
+
+    // Verificar porque em algum momento
+    // a empresa não está setada no canal
+    formValue.empresaId = empresa ? empresa.id : null;
+
+    return formValue;
+  }
+
+  public voltar(event) {
+    const backUrl = 'cadastro/empresa/fornec/listafornecedor';
+    this._router.navigate([backUrl]);
+  }
+
+  public localizarCidades(event): void {
     if (!this.cidades) {
-      this.cidadeService.findAll(cidades => {
+      this._cidadeService.findAll(cidades => {
         this.cidades = cidades;
-        this.filtrarCidades(event);
+        this._filtrarCidades(event);
       });
     } else {
-      this.filtrarCidades(event);
+      this._filtrarCidades(event);
+    }
+  }
+
+  public salvar() {
+
+    if (this.formFornecedor.invalid) {
+      return;
+    }
+
+    const fornecedor = this._getDataWithIdsRelation();
+    fornecedor.situacao = fornecedor.situacao ? 'ATIVO' : 'INATIVO';
+    fornecedor.cidadeId = fornecedor.cidadeId ? fornecedor.cidadeId.id : null;
+
+    this._fornecedorService.save(fornecedor, fornecedor => {
+
+      fornecedor.situacao = fornecedor.situacao === "ATIVO";
+      this.formFornecedor.setValue(fornecedor);
+
+      this._messageService.add({
+        severity: 'success',
+        detail: 'Fornecedor salvo com sucesso!'
+      });
+
+    });
+  }
+
+  public selecionaContato(event, contato, overlaypanel) {
+    this.contatoSelecionado = contato;
+    overlaypanel.toggle(event);
+  }
+
+  public showContatoDialog(contato) {
+
+    this.contatoDialogVisible = true;
+    this.dialogTitle = contato ? 'Alterar contato'
+      : 'Adicionar contato';
+
+    if (contato) {
+      this.formContato.setValue(contato);
+      return;
     }
 
   }
 
-  filtrarCidades(event){
-    this.cidadesAutoComple = this.cidades.filter(cidade => {
-      return cidade.nome.toUpperCase().indexOf(event.query.toUpperCase()) > -1 
-      || ((cidade.estadoId) && ((cidade.estadoId.nome.toUpperCase().indexOf(event.query.toUpperCase()) > -1 
-      || cidade.estadoId.uf.toUpperCase().indexOf(event.query.toUpperCase()) > -1)));
+  public salvarContato(event): void {
+
+    const contato = this.formContato.getRawValue();
+
+    /**
+     * @description FIXME
+     * // Quando é um fornecedor novo, não é possível obter o ID do mesmo
+     * // Somente é possível obter o ID após um fornecedor ja ter sido salvo
+     * 
+     *   const fornecedor = this.formFornecedor.getRawValue();
+     *   contato.fornecedorId = 'idFornecedor';
+     */
+
+    if (this.formContato.invalid) {
+      return;
+    }
+
+    this.contatoDialogVisible = false;
+
+    this._fornecedorContatoService.save(contato, contato => {
+      this._messageService.add({
+        severity: 'success',
+        detail: 'Contato salvo com sucesso!'
+      });
     });
+
+    // this.contatos.push(contato);
+
   }
 
-  salvar() {
-    if (this.form.invalid)
-      return;
-    let fornec = this.form.value;
-    let empresa = this.dataService.getData(Channels.pages.cadastro.empresa.empresa);
-    fornec.empresaId = empresa.id;
-    fornec.situacao = fornec.situacao ? 'ATIVO' : 'INATIVO';
-    fornec.cidadeId = fornec.cidadeId.id;
-    this.fornecedorService.save(fornec, fornecedor => {
-      fornecedor.situacao = fornecedor.situacao === "ATIVO";
-      this.form.setValue(fornecedor);
-      this.messageService.add({ severity: 'success', detail: 'Fornecedor salvo com sucesso!' });
+  public deleteContato(contato): void {
+
+    this._messageService.add({
+      severity: 'success',
+      detail: 'Contato excluído com sucesso!'
     });
+
+    // const index = this.contatos.indexOf(contato);
+    // this.contatos.splice(index, 1);
+
+    // this._fornecedorContatoService.delete(contato, contato => {
+    //   this._messageService.add({
+    //     severity: 'success',
+    //     detail: 'Contato excluído com sucesso!'
+    //   });
+    // });
   }
 
 }

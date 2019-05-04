@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FuncionalidadeService {
+export class FornecedorContatoService {
 
-  url = 'rs/v1/funcionalidade';
+  url = 'rs/v1/fornecedorcontato';
 
   constructor(private http: HttpClient) { }
 
-  findByProdutoId(id, success) {
+  findByFornecedorId(id, success) {
     const observe = 'response';
-    return this.http.get(this.url + '/findbyproduto/' + id, { observe })
+    return this.http.get(this.url + '/findbyfornecedor/' + id, { observe })
       .subscribe(response => {
         success(response.body);
       });
@@ -25,4 +25,5 @@ export class FuncionalidadeService {
         success(response.body);
       });
   }
+
 }
