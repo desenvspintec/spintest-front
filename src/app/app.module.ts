@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // primeng components
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -24,6 +24,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MenubarModule } from 'primeng/menubar';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { CheckboxModule } from 'primeng/checkbox';
+import { EditorModule } from 'primeng/editor';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
 
 // app components
 import { AppComponent } from './app.component';
@@ -36,6 +42,8 @@ import { ErrorMsgComponent } from './components/messages/error-msg/error-msg.com
 import { HttpConfigInterceptor } from './components/interceptors/http-config.interceptor';
 import { TableFrontComponent } from './components/tables/table-front/table-front.component';
 import { OutletComponent } from './components/outlet/outlet.component';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { FormDialogComponent } from './components/dialogs/form-dialog/form-dialog.component';
 
 // components
 import { PubSubModule } from 'angular7-pubsub';
@@ -44,7 +52,7 @@ import { PubSubModule } from 'angular7-pubsub';
 import { routing } from './routes/app-route';
 
 //keycloak
-import { KeycloakService, KeycloakAngularModule} from 'keycloak-angular';
+import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { initializer } from './utils/app-init';
 
 //pages
@@ -75,10 +83,6 @@ import { ListaSuiteDeTesteComponent } from './pages/projeto-de-teste/suite-de-te
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard/dashboard.component';
 import { CadastrarBaselineComponent } from './pages/plano-de-teste/baseline/cadastrar-baseline/cadastrar-baseline.component';
 import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-baseline/lista-baseline.component';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -116,7 +120,9 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
     ListaSuiteDeTesteComponent,
     DashboardComponent,
     CadastrarBaselineComponent,
-    ListaBaselineComponent
+    ListaBaselineComponent,
+    ConfirmDialogComponent,
+    FormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +133,11 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
     HttpClientModule,
     TableModule,
     ButtonModule,
+    EditorModule,
+    OverlayPanelModule,
+    ConfirmDialogModule,
+    InputSwitchModule,
+    InputMaskModule,
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
@@ -165,7 +176,8 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
       multi: true
     },
     MessageService,
-    AuthGuard
+    AuthGuard,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

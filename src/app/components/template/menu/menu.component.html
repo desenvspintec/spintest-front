@@ -1,6 +1,6 @@
 <div class="layout-sidebar" [ngClass]="{'layout-sidebar-active':template.mobileMenuActive,'layout-sidebar-closed':!template.mobileMenuActive}"
 (click)="template.hideMobileMenu($event)" id="menu">  
-    <p-toast life="15000"></p-toast>
+    <p-toast life="15000" position="bottom-right"></p-toast>
     <p-menu [model]="items"></p-menu>
 
 

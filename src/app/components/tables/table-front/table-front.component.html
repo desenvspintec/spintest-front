@@ -1,16 +1,25 @@
 <p-table #tt [columns]=cols [value]=data selectionMode="single" (sortFunction)="tableSort($event)" [customSort]="true"
-  [(selection)]="selectedData" [paginator]="true" [rows]="10" [responsive]="true" styleClass="layout-table" (onRowSelect)="onRowSelect($event)">
+  [(selection)]="selectedData" [paginator]="true" [rows]="7" [responsive]="true" styleClass="layout-table"
+  (onRowSelect)="onRowSelect($event)">
 
   <ng-template pTemplate="caption">
     <div class="ui-g ui-fluid">
-      <div class="ui-g-12 ui-md-3" style="font-size: 18px; text-align: left;">
+      <div class="ui-g-12 ui-md-2" style="font-size: 18px; text-align: left;">
         {{title}}
       </div>
-      <div class="ui-g-12 ui-md-9">
-        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-        <input type="text" pInputText style="max-width: 80% !important" placeholder="Filtrar"
-          (input)="tt.filterGlobal($event.target.value, 'contains')">
-        <p-button label="Novo" (onClick)="novoClickAux($event)" icon="pi pi-plus" style="margin-left: 10px"></p-button>
+
+      <div class="ui-g-12 ui-md-10">
+
+        <div class="ui-g-12 ui-md-9">
+          <i class="fa fa-search" style="margin:10px 10px 0 0"></i>
+          <input type="text" pInputText style="max-width: 80% !important" placeholder="Filtrar"
+            (input)="tt.filterGlobal($event.target.value, 'contains')">
+        </div>
+
+        <div class="ui-g-12 ui-md-3">
+          <p-button style="text-align: right;" label="Novo" (onClick)="novoClickAux($event)" icon="pi pi-plus">
+          </p-button>
+        </div>
       </div>
     </div>
 
@@ -20,7 +29,7 @@
       <th *ngFor="let col of columns" style="text-align: left" [pSortableColumn]="col.field">{{col.header}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
-      <th>Ações</th>
+      <th></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-data let-columns="columns" let-rowIndex="rowIndex">
@@ -29,7 +38,7 @@
         {{getValue(data,col)}} </td>
       <td style="text-align: center">
         <p-menu #menu [popup]="true" [model]="actions"></p-menu>
-        <button type="button" pButton icon="pi pi-bars" label="Ações" class="ui-button-raised ui-button-secondary"
+        <button type="button" pButton icon="pi pi-list" class="ui-button-rounded ui-button-secondary"
           (click)="selectedData = data;menu.toggle($event);"></button>
       </td>
 
@@ -37,8 +46,8 @@
   </ng-template>
   <ng-template pTemplate="emptymessage" let-columns>
     <tr>
-      <td [attr.colspan]="columns.length + 1" style="text-align: center">
-        Registros não encontrados!
+      <td [attr.colspan]="columns.length + 1" style="text-align: center; padding: 20px">
+        Nenhum registro encontrado.
       </td>
     </tr>
   </ng-template>

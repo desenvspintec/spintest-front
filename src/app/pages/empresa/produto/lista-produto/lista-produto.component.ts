@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Channels } from 'src/environments/channels';
-import { ProdutoService } from 'src/app/service/produto/produto.service';
-import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+
+// services
 import { DataService } from 'src/app/components/services/data-service/data.service';
+import { ProdutoService } from 'src/app/service/produto/produto.service';
+
+// environments
+import { Channels } from 'src/environments/channels';
 
 @Component({
   selector: 'app-lista-produto',
@@ -13,33 +15,35 @@ import { DataService } from 'src/app/components/services/data-service/data.servi
 })
 export class ListaProdutoComponent implements OnInit {
 
+  public data: any[] = [];
+  public cols: any[];
+  public actions: any[];
 
-  data: any[];
-  cols: any[];
-  actions: any[];
-  setFornecedorSub: Subscription;
-  fornecedor: any;
-  title: any;
-  selectedData: any;
-  channel = Channels.pages.cadastro.empresa.produto;
-  
-  constructor(private produtoService: ProdutoService,
-    private messageService: MessageService,
+  public title: any;
+  public selectedData: any;
+
+  public channel: string = Channels.pages.cadastro.empresa.produto;
+  private _channelFornecedor: string = Channels.pages.cadastro.empresa.fornecedor;
+
+  constructor(
+    private produtoService: ProdutoService,
     private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
 
     this.cols = [
-      { field: 'id', header: 'Cod.', style: 'text-align: right;' },
+      { field: 'id', header: 'Código', style: 'text-align: right;' },
       { field: 'descricao', header: 'Descrição.', style: 'text-align: left;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: center;' },
     ];
-    this.actions = [];
 
-    this.fornecedor = this.dataService.getData(Channels.pages.cadastro.empresa.fornecedor);
-    this.title = this.fornecedor.descricao;
-    this.produtoService.findByFornecedor(this.fornecedor.id, produtos => {
+    const fornecedor = this.dataService.getData(this._channelFornecedor);
+
+    this.title = fornecedor.descricao;
+
+    this.produtoService.findByFornecedor(fornecedor.id, produtos => {
       this.data = produtos;
     });
   }
@@ -47,7 +51,5 @@ export class ListaProdutoComponent implements OnInit {
   tableDoubleClick(event) {
     this.router.navigate(['cadastro/empresa/func/listafuncionalidade']);
   }
-
-
 
 }

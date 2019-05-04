@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class FormComponent implements OnInit {
 
   @Input() title;
+  @Input() form;
   @Output() voltar = new EventEmitter<any>();
 
   constructor() { }

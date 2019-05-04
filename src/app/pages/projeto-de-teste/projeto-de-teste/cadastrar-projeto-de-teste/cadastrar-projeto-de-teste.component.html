@@ -1,3 +1,45 @@
-<p>
-  cadastrar-projeto-de-teste works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [title]="form.value.descricao" [form]="form">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="u-inputgroup ">
+          <label for="descricao">Descrição</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="descricao" type="text" placeholder="Descrição" pInputText formControlName="descricao">
+            <app-error-msg [control]="form.get('descricao')" label="Descrição"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="u-inputgroup ">
+          <label for="produto">Produto</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-dropdown [options]="produtos" placeholder="Produto" formControlName="produtoId" [group]="true" filter="true">
+              <ng-template let-group pTemplate="group">
+                <span style="margin-left:.25em">{{group.descricao}}</span>
+              </ng-template>
+            </p-dropdown>
+            <!-- <app-error-msg [control]="form.get('produto')" label="produto"></app-error-msg> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="u-inputgroup ">
+          <label for="situacao">Situação</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">
+            </p-inputSwitch>
+            <!-- <app-error-msg [control]="form.get('situacao')" label="situacao"></app-error-msg> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-form>
+</form>

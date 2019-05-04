@@ -14,26 +14,30 @@ export const FornecedorFolder = {
     selectedResource: Channels.pages.cadastro.empresa.fornecedor,
     required: {
         required_list: [
-            { channel: Channels.pages.cadastro.empresa.empresa, msg: 'Selecione uma empresa!', redirect: 'cadastro/empresa/emp/listaempresa' }
+            {
+                channel: Channels.pages.cadastro.empresa.empresa,
+                msg: 'Selecione uma empresa.',
+                redirect: 'cadastro/empresa/emp/listaempresa'
+            }
         ]
     },
     children: [
-        { 
-            label: 'Lista Fornecedores', 
-            routerLink: 'listafornecedor', 
-            path: 'listafornecedor', 
+        {
+            label: 'Lista Fornecedores',
+            routerLink: 'listafornecedor',
+            path: 'listafornecedor',
             canActivate: [AuthGuard],
-            component: ListaFornecedorComponent, 
-            crudList: true 
+            component: ListaFornecedorComponent,
+            crudList: true
         },
 
-        { 
-            label: 'Cadastro Fornecedor', 
-            routerLink: 'cadastrofornecedor', 
-            path: 'cadastrofornecedor', 
+        {
+            label: 'Cadastro Fornecedor',
+            routerLink: 'cadastrofornecedor',
+            path: 'cadastrofornecedor',
             component: CadastrarFornecedorComponent,
-            canActivate: [AuthGuard], 
-            crudForm: true 
+            canActivate: [AuthGuard],
+            crudForm: true
         },
         { path: '**', pathMatch: 'full', redirectTo: 'listafornecedor' }
     ]

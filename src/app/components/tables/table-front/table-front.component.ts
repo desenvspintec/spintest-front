@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SortEvent } from 'primeng/components/common/sortevent';
-import { DatePipe } from '@angular/common';
-import { CurrencyPipe } from '@angular/common';
-import { PubSubService } from 'angular7-pubsub';
-import { DataService } from '../../services/data-service/data.service';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { PubSubService } from 'angular7-pubsub';
+import { DataService } from '../../services/data-service/data.service';
+import { SortEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-table-front',

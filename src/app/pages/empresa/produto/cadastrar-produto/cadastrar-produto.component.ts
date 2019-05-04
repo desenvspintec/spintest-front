@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/components/services/data-service/data.service';
-import { Channels } from 'src/environments/channels';
-import { ProdutoService } from 'src/app/service/produto/produto.service';
+
+// services
 import { MessageService } from 'primeng/api';
+import { ProdutoService } from 'src/app/service/produto/produto.service';
+import { DataService } from 'src/app/components/services/data-service/data.service';
+
+// environments
+import { Channels } from 'src/environments/channels';
 
 @Component({
   selector: 'app-cadastrar-produto',
@@ -13,16 +17,39 @@ import { MessageService } from 'primeng/api';
 })
 export class CadastrarProdutoComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
-    private router: Router,
-    private dataService: DataService,
-    private produtoService: ProdutoService,
-    private messageService: MessageService) { }
+  private _channelProduto: string = Channels.pages.cadastro.empresa.produto;
+  private _channelEmpresa: string = Channels.pages.cadastro.empresa.empresa;
+  private _channelFornecedor: string = Channels.pages.cadastro.empresa.fornecedor;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _dataService: DataService,
+    private _produtoService: ProdutoService,
+    private _messageService: MessageService) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+
+    this._buildForm();
+
+    const produto = this._dataService.getData(this._channelProduto);
+
+    if (!produto) {
+      this.form.reset();
+      return;
+    }
+
+    if (produto.situacao) {
+      produto.situacao = produto.situacao === "ATIVO";
+    }
+
+    this.form.setValue(produto);
+  }
+
+  private _buildForm(): void {
+    this.form = this._formBuilder.group({
       id: [''],
       descricao: ['', Validators.required],
       empresaId: [''],
@@ -33,35 +60,42 @@ export class CadastrarProdutoComponent implements OnInit {
       createdAt: [''],
       updatedAt: ['']
     });
+  }
 
-    let produto = this.dataService.getData(Channels.pages.cadastro.empresa.produto);
-    if (produto) {
-      if (produto.situacao) {
-        produto.situacao = produto.situacao === "ATIVO";
-      }
-      this.form.setValue(produto);
-    } else {
-      this.form.reset();
+  private _getDataWithIdsRelation(): any {
+    const formValue = this.form.getRawValue();
+    const empresa = this._dataService.getData(this._channelEmpresa);
+    const fornecedor = this._dataService.getData(this._channelFornecedor);
+    formValue.empresaId = empresa.id;
+    formValue.fornecedorId = fornecedor.id;
+    return formValue;
+  }
+
+  public voltar(event): void {
+    const backUrl = 'cadastro/empresa/prod/listaproduto';
+    this._router.navigate([backUrl]);
+  }
+
+  public salvar(): void {
+
+    if (this.form.invalid) {
+      return;
     }
-  }
 
-  voltar(event) {
-    this.router.navigate(['cadastro/empresa/prod/listaproduto']);
-  }
+    const produto = this._getDataWithIdsRelation();
+    produto.situacao = produto.situacao ? 'ATIVO' : 'INATIVO';
 
-  salvar() {
-    if (this.form.invalid)
-    return;
-  let fornec = this.form.value;
-  let empresa = this.dataService.getData(Channels.pages.cadastro.empresa.empresa);
-  fornec.empresaId = empresa.id;
-  fornec.situacao = fornec.situacao ? 'ATIVO' : 'INATIVO';
-  fornec.cidadeId = fornec.cidadeId.id;
-  this.produtoService.save(fornec, fornecedor => {
-    fornecedor.situacao = fornecedor.situacao === "ATIVO";
-    this.form.setValue(fornecedor);
-    this.messageService.add({ severity: 'success', detail: 'Fornecedor salvo com sucesso!' });
-  });
+    this._produtoService.save(produto, produto => {
+
+      produto.situacao = produto.situacao === "ATIVO";
+      this.form.setValue(produto);
+
+      this._messageService.add({
+        severity: 'success',
+        detail: 'Produto salvo com sucesso!'
+      });
+
+    });
   }
 
 }

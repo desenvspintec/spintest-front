@@ -1,3 +1,53 @@
-<p>
-  cadastrar-passo-de-teste works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [title]="form.value.acao" [form]="form">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="acao">Ação:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="acao" type="text" placeholder="Descrição" pInputText formControlName="acao">
+            <app-error-msg [control]="form.get('acao')" label="Ação"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-7">
+        <label for="objetivo">Resultado esperado:</label>
+        <div class="u-inputgroup input-group  ">
+          <p-editor formControlName="objetivo" [style]="{'height':'100px'}"></p-editor>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="sequencia">Sequência de execução:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="sequencia" type="text" placeholder="Sequência de preenchimento" pInputText
+              formControlName="sequencia">
+            <small>Sequência em que o passo de teste ocorre.</small>
+            <app-error-msg [control]="form.get('sequencia')" label="Sequencia de execução"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12">
+        <div class="u-inputgroup ">
+          <label for="situacao">Situação:</label>
+          <div class="u-inputgroup input-group">
+            <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">
+            </p-inputSwitch>
+            <app-error-msg [control]="form.get('situacao')" label="Situação"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </app-form>
+</form>
