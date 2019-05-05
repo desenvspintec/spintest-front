@@ -69,7 +69,7 @@ export class CadastrarFornecedorComponent implements OnInit {
     }
 
     this._fornecedorContatoService
-      .findByFornecedorId('fornecedor.id', contatos => {
+      .findByFornecedorId(fornecedor.id, contatos => {
         this.contatos = contatos || [];
       });
 
@@ -102,6 +102,7 @@ export class CadastrarFornecedorComponent implements OnInit {
       nome: ['', [Validators.required]],
       cargo: [''],
       telFixo: [''],
+      fornecedorId: [''],
       telCel: [''],
       email: ['', [Validators.email]],
       ramal: [''],
@@ -156,6 +157,11 @@ export class CadastrarFornecedorComponent implements OnInit {
 
     this._fornecedorService.save(fornecedor, fornecedor => {
 
+      this.contatos.forEach(contato => {
+        contato.fornecedorId = fornecedor.id;
+        this._fornecedorContatoService.save(contato, contato => { });
+      });
+
       fornecedor.situacao = fornecedor.situacao === "ATIVO";
       this.formFornecedor.setValue(fornecedor);
 
@@ -187,32 +193,20 @@ export class CadastrarFornecedorComponent implements OnInit {
 
   public salvarContato(event): void {
 
-    const contato = this.formContato.getRawValue();
-
-    /**
-     * @description FIXME
-     * // Quando é um fornecedor novo, não é possível obter o ID do mesmo
-     * // Somente é possível obter o ID após um fornecedor ja ter sido salvo
-     * 
-     *   const fornecedor = this.formFornecedor.getRawValue();
-     *   contato.fornecedorId = 'idFornecedor';
-     */
-
     if (this.formContato.invalid) {
       return;
     }
 
     this.contatoDialogVisible = false;
+    const contato = this.formContato.getRawValue();
 
-    this._fornecedorContatoService.save(contato, contato => {
-      this._messageService.add({
-        severity: 'success',
-        detail: 'Contato salvo com sucesso!'
-      });
-    });
+    if (contato.id) {
+      const index = this.contatos.findIndex(v => v.id === contato.id);
+      this.contatos[index] = contato;
+      return;
+    }
 
-    // this.contatos.push(contato);
-
+    this.contatos.push(contato);
   }
 
   public deleteContato(contato): void {
@@ -222,15 +216,9 @@ export class CadastrarFornecedorComponent implements OnInit {
       detail: 'Contato excluído com sucesso!'
     });
 
-    // const index = this.contatos.indexOf(contato);
-    // this.contatos.splice(index, 1);
+    const index = this.contatos.indexOf(contato);
+    this.contatos.splice(index, 1);
 
-    // this._fornecedorContatoService.delete(contato, contato => {
-    //   this._messageService.add({
-    //     severity: 'success',
-    //     detail: 'Contato excluído com sucesso!'
-    //   });
-    // });
   }
 
 }

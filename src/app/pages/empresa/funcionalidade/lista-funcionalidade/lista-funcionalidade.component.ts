@@ -16,7 +16,7 @@ export class ListaFuncionalidadeComponent implements OnInit {
 
   public data: any[] = [];
   public cols: any[];
-  public actions: any[];
+  public actions: any[] = [];
   public title: any;
 
   public channel = Channels.pages.cadastro.empresa.funcionalidade;

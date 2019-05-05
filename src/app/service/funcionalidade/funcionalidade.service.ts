@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FuncionalidadeService {
 
-  url = 'rs/v1/funcionalidade';
+  url = 'rs/v1/query/funcionalidade';
 
   constructor(private http: HttpClient) { }
 
   findByProdutoId(id, success) {
     const observe = 'response';
-    return this.http.get(this.url + '/findbyproduto/' + id, { observe })
+    return this.http.get(this.url + '?produtoId=' + id, { observe })
       .subscribe(response => {
         success(response.body);
       });

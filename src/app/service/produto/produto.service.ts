@@ -5,12 +5,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProdutoService {
-  url = 'rs/v1/produto';
+  
+  url = 'rs/v1/query/produto';
+
   constructor(private http: HttpClient) { }
 
   findByFornecedor(id, success) {
     const observe = 'response';
-    return this.http.get(this.url + '/findbyfornecedor/'+id, { observe })
+    return this.http.get(this.url + '?fornecedorId=' +id, { observe })
       .subscribe(response => {
         success(response.body);
       });
