@@ -45,7 +45,7 @@
             <div class="u-inputgroup ">
               <label for="cep">CEP:</label>
               <div class="u-inputgroup input-group  ">
-                <p-inputMask mask="99999-999" type="text" [(ngModel)]="val1" placeholder="CEP" formControlName="cep">
+                <p-inputMask mask="99999-999" type="text" placeholder="CEP" formControlName="cep">
                 </p-inputMask>
                 <app-error-msg [control]="formFornecedor.get('cep')" label="CEP"></app-error-msg>
               </div>

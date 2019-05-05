@@ -25,7 +25,7 @@ export class CadastrarFornecedorComponent implements OnInit {
 
   public formContato: FormGroup;
   public dialogTitle: string;
-  public contatoSelecionado = {};
+  public contatoSelecionado = {email: '', telCel: '', telFixo: '', ramal: ''};
   public contatoDialogVisible: boolean = false;
   public contatos: any[] = [];
 
