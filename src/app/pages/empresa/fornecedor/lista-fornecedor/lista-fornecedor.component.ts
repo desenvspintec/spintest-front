@@ -8,6 +8,10 @@ import { DataService } from 'src/app/components/services/data-service/data.servi
 // Enviroments
 import { Channels } from '../../../../../environments/channels';
 
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-lista-fornecedor',
   templateUrl: './lista-fornecedor.component.html',
@@ -23,7 +27,7 @@ export class ListaFornecedorComponent implements OnInit {
 
   public channel = Channels.pages.cadastro.empresa.fornecedor;
   private _channelEmpresa = Channels.pages.cadastro.empresa.empresa;
-  private _empresa: any;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
     private router: Router,
@@ -40,12 +44,17 @@ export class ListaFornecedorComponent implements OnInit {
       { field: 'situacao', header: 'Situação', style: 'text-align: center;' },
     ];
 
-    this._empresa = this.dataService.getData(this._channelEmpresa);
-    this.title = this._empresa.nome;
+    const empresa = this.dataService.getData(this._channelEmpresa);
+    this.title = empresa.nome;
 
-    this.fornecedorService.findByEmpresaId(this._empresa.id, fornecedores => {
-      this.data = fornecedores;
-    });
+    this.fornecedorService.findByEmpresaId(empresa.id)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(fornecedores => this.data = fornecedores);
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   public tableDoubleClick(event) {

@@ -7,6 +7,8 @@ import { SuiteTesteService } from 'src/app/service/suite-teste/suite-teste.servi
 
 // Enviroments
 import { Channels } from 'src/environments/channels';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lista-suite-de-teste',
@@ -15,16 +17,15 @@ import { Channels } from 'src/environments/channels';
 })
 export class ListaSuiteDeTesteComponent implements OnInit {
 
-  public data = [
-    { codigo: 54347, id: 1, descricao: 'Suite 1' },
-  ];
-
+  public data: any[] = [];
   public cols: any[];
   public actions: any[] = [];
   public title: any;
+
   public channel = Channels.pages.cadastro.projeto_de_teste.suite_de_teste;
 
   private _channelProjetoTeste = Channels.pages.cadastro.projeto_de_teste.projeto_de_teste;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
     private _router: Router,
@@ -45,10 +46,14 @@ export class ListaSuiteDeTesteComponent implements OnInit {
     this.title = projeto.descricao;
 
     this._suiteTesteService
-      .findByProjetoTesteId(projeto.id, suites => {
-        this.data = suites;
-      });
+      .findByProjetoTesteId(projeto.id)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(suites => this.data = suites);
+  }
 
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   public tableDoubleClick(event) {

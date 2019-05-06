@@ -13,5 +13,17 @@
       </div>
     </div>
 
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-12"><div class="u-inputgroup ">
+          <label for="situacao">Situação:</label>
+          <div class="u-inputgroup input-group">
+            <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">
+            </p-inputSwitch>
+            <app-error-msg [control]="form.get('situacao')" label="Situação"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </app-form>
 </form>

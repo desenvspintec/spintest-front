@@ -3,10 +3,14 @@ import { Router } from '@angular/router';
 
 // Services
 import { DataService } from 'src/app/components/services/data-service/data.service';
+import { FornecedorContatoService } from 'src/app/service/fornecedor_contato/fornecedor-contato.service';
 
 // Enviroments
 import { Channels } from '../../../../../environments/channels';
-import { FornecedorContatoService } from 'src/app/service/fornecedor_contato/fornecedor-contato.service';
+
+// rxjs
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-contato',
@@ -22,12 +26,14 @@ export class ListaContatoComponent implements OnInit {
   public selectedData: any;
 
   public channel = Channels.pages.cadastro.empresa.contato;
-  private _fornecedor: any;
 
+  private _channelFornecedor = Channels.pages.cadastro.empresa.fornecedor;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
-  constructor(private router: Router,
-    private fornecedorContatoService: FornecedorContatoService,
-    private dataService: DataService) { }
+  constructor(
+    private _router: Router,
+    private _fornecedorContatoService: FornecedorContatoService,
+    private _dataService: DataService) { }
 
   ngOnInit() {
 
@@ -39,16 +45,22 @@ export class ListaContatoComponent implements OnInit {
       { field: 'ramal', header: 'Ramal', style: 'text-align: center;' },
     ];
 
-    this._fornecedor = this.dataService.getData(Channels.pages.cadastro.empresa.fornecedor);
-    this.title = this._fornecedor.descricao;
-    this.fornecedorContatoService.findByFornecedorId(this._fornecedor.id, contatos => {
-      this.data = contatos;
-    });
+    const fornecedor = this._dataService.getData(this._channelFornecedor);
+    this.title = fornecedor.descricao;
+
+    this._fornecedorContatoService
+      .findByFornecedorId(fornecedor.id)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(contatos => this.data = contatos);
   }
 
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
   public tableDoubleClick(event) {
-    /* const navigateUrl = 'cadastro/empresa/fornecfodler/contato/cadastrocontato';
-     this.router.navigate([navigateUrl]);*/
+    const navigateUrl = 'cadastro/empresa/fornecfodler/contato/cadastrocontato';
+    this._router.navigate([navigateUrl])
   }
 }

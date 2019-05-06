@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
+// rxjs
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FornecedorService {
-  url = 'rs/v1/query/fornecedor';
-  constructor(private http: HttpClient) { }
 
-  findByEmpresaId(id, success) {
-    const observe = 'response';
-    return this.http.get(this.url + '?empresaId=' + id, { observe })
-      .subscribe(response => {
-        success(response.body);
-      });
+  url = 'rs/v1/query/fornecedor';
+
+  constructor(private _http: HttpClient) { }
+
+  public findAll(): Observable<any[]> {
+    return this._http.get<any[]>(this.url);
   }
 
-  save(body, success) {
+  public findByEmpresaId(id: number): Observable<any[]> {
+    return this._http.get<any[]>(this.url + '?empresaId=' + id);
+  }
+
+  public save(body, success) {
     const observe = 'response';
-    this.http.post(this.url, body, { observe })
+    this._http.post(this.url, body, { observe })
       .subscribe(response => {
         success(response.body);
       });

@@ -55,7 +55,7 @@ export class CadastrarProdutoComponent implements OnInit {
       empresaId: [''],
       fornecedorId: [''],
       situacao: [''],
-      deleted: [''],
+      deleted: false,
       createdAt: [''],
       updatedAt: [''],
       userId: [''],
@@ -85,9 +85,10 @@ export class CadastrarProdutoComponent implements OnInit {
 
     const produto = this._getDataWithIdsRelation();
     produto.situacao = produto.situacao ? 'ATIVO' : 'INATIVO';
+    produto.deleted = false; // FIXME
 
     this._produtoService.save(produto, produto => {
-
+      
       produto.situacao = produto.situacao === "ATIVO";
       this.form.setValue(produto);
 

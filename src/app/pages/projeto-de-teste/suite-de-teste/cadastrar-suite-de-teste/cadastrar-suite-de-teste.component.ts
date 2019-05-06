@@ -19,7 +19,6 @@ export class CadastrarSuiteDeTesteComponent implements OnInit {
 
   public form: FormGroup;
 
-  private _channelEmpresa = Channels.pages.cadastro.empresa.empresa;
   private _channelProjeto = Channels.pages.cadastro.projeto_de_teste.projeto_de_teste;
   private _channelSuiteTeste = Channels.pages.cadastro.projeto_de_teste.suite_de_teste;
 
@@ -60,19 +59,19 @@ export class CadastrarSuiteDeTesteComponent implements OnInit {
   private _getDataWithIdsRelation(): any {
     const formValue = this.form.getRawValue();
     const projeto = this._dataService.getData(this._channelProjeto);
-    const empresa = this._dataService.getData(this._channelEmpresa);
     formValue.projetoId = projeto.id;
-    formValue.empresaId = empresa.id;
+    formValue.empresaId = projeto.empresaId;
     return formValue;
   }
 
   public salvar(): void {
-
+    
     if (this.form.invalid) {
       return;
     }
 
     const suiteTeste = this._getDataWithIdsRelation();
+    suiteTeste.situacao = suiteTeste.situacao ? 'ATIVO' : 'INATIVO';
 
     this._suiteTesteService.save(suiteTeste, suiteTeste => {
       this.form.setValue(suiteTeste);

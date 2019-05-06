@@ -7,6 +7,10 @@ import { DataService } from 'src/app/components/services/data-service/data.servi
 // channels
 import { Channels } from 'src/environments/channels';
 
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-lista-funcionalidade',
   templateUrl: './lista-funcionalidade.component.html',
@@ -21,8 +25,8 @@ export class ListaFuncionalidadeComponent implements OnInit {
 
   public channel = Channels.pages.cadastro.empresa.funcionalidade;
 
-  private _produto: any;
   private _channelEmpresa: string = Channels.pages.cadastro.empresa.produto;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
     private funcionalidadeService: FuncionalidadeService,
@@ -33,19 +37,20 @@ export class ListaFuncionalidadeComponent implements OnInit {
     this.cols = [
       { field: 'id', header: 'Cod.', style: 'text-align: right;' },
       { field: 'nome', header: 'Nome.', style: 'text-align: left;' },
-      { field: 'observacao', header: 'Observação', style: 'text-align: right;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: center;' },
     ];
 
-    this._produto = this.dataService.getData(this._channelEmpresa);
-    this.title = this._produto.descricao;
+    const produto = this.dataService.getData(this._channelEmpresa);
+    this.title = produto.descricao;
 
-    this.funcionalidadeService.findByProdutoId(this._produto.id, funcionalidades => {
-      this.data = funcionalidades;
-    });
-
-
+    this.funcionalidadeService
+      .findByProdutoId(produto.id)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(funcionalidades => this.data = funcionalidades);
   }
 
-
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 }

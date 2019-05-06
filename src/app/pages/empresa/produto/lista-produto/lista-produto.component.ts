@@ -8,6 +8,10 @@ import { ProdutoService } from 'src/app/service/produto/produto.service';
 // environments
 import { Channels } from 'src/environments/channels';
 
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-lista-produto',
   templateUrl: './lista-produto.component.html',
@@ -23,7 +27,9 @@ export class ListaProdutoComponent implements OnInit {
   public selectedData: any;
 
   public channel: string = Channels.pages.cadastro.empresa.produto;
+  
   private _channelFornecedor: string = Channels.pages.cadastro.empresa.fornecedor;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
     private produtoService: ProdutoService,
@@ -43,9 +49,15 @@ export class ListaProdutoComponent implements OnInit {
 
     this.title = fornecedor.descricao;
 
-    this.produtoService.findByFornecedor(fornecedor.id, produtos => {
-      this.data = produtos;
-    });
+    this.produtoService
+    .findByFornecedor(fornecedor.id)
+    .pipe(takeUntil(this._unsubscribeAll))
+    .subscribe(produtos => this.data = produtos);
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   tableDoubleClick(event) {

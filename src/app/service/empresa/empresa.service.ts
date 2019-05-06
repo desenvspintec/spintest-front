@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,11 @@ export class EmpresaService {
 
   constructor(private http: HttpClient) { }
 
-  findAll(success) {
-    const observe = 'response';
-    return this.http.get(this.url, { observe })
-    .subscribe(response => {
-      success(response.body);
-    });
+  public findAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.url);
   }
 
-  save(body, success) {
+  public save(body, success) {
     const observe = 'response';
     this.http.post(this.url, body, { observe })
       .subscribe(response => {

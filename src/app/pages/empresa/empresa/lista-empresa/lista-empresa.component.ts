@@ -6,6 +6,8 @@ import { EmpresaService } from 'src/app/service/empresa/empresa.service';
 
 // channels
 import { Channels } from 'src/environments/channels';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-empresa',
@@ -21,6 +23,8 @@ export class ListaEmpresaComponent implements OnInit {
 
   public channel: any = Channels.pages.cadastro.empresa.empresa;
 
+  private _unsubscribeAll: Subject<any> = new Subject();
+
   constructor(
     private router: Router,
     private empresaService: EmpresaService,
@@ -32,10 +36,16 @@ export class ListaEmpresaComponent implements OnInit {
       { field: 'nome', header: 'Nome', style: 'text-align: left;' }
     ];
 
-    this.empresaService.findAll((empresas) => {
-      this.data = empresas;
-    });
+    this.empresaService.findAll()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(empresas => this.data = empresas);
   }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
+
 
   tableDoubleClick(event) {
     this.router.navigate(['cadastro/empresa/fornecfodler/fornec/listafornecedor']);

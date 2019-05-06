@@ -133,7 +133,8 @@ export class CadastrarFornecedorComponent implements OnInit {
 
     const fornecedor = this._getDataWithIdsRelation();
     fornecedor.situacao = fornecedor.situacao ? 'ATIVO' : 'INATIVO';
-    fornecedor.cidadeId = fornecedor.cidadeId ? fornecedor.cidadeId.id : null;
+    // fornecedor.cidadeId = fornecedor.cidadeId ? fornecedor.cidadeId.id : '';
+    fornecedor.cidadeId = 1;
 
     this._fornecedorService.save(fornecedor, fornecedor => {
 
