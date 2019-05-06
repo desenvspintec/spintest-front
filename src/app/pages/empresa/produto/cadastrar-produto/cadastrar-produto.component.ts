@@ -54,11 +54,12 @@ export class CadastrarProdutoComponent implements OnInit {
       descricao: ['', Validators.required],
       empresaId: [''],
       fornecedorId: [''],
-      userId: [''],
       situacao: [''],
       deleted: [''],
       createdAt: [''],
-      updatedAt: ['']
+      updatedAt: [''],
+      userId: [''],
+      updatedUserId: ['']
     });
   }
 

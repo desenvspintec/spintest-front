@@ -55,9 +55,12 @@ export class CadastrarFuncionalidadeComponent implements OnInit {
       nome: ['', Validators.required],
       empresaId: [''],
       produtoId: [''],
-      userId: [''],
       situacao: [''],
-      observacao: ['']
+      observacao: [''],
+      createdAt: [''],
+      updatedAt: [''],
+      userId: [''],
+      updatedUserId: ['']
     });
   }
 

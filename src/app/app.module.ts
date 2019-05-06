@@ -44,6 +44,9 @@ import { TableFrontComponent } from './components/tables/table-front/table-front
 import { OutletComponent } from './components/outlet/outlet.component';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { FormDialogComponent } from './components/dialogs/form-dialog/form-dialog.component';
+import { FooterComponent } from './components/template/footer/footer.component';
+import { TabMenuComponent } from './components/template/tab-menu/tab-menu.component';
+import { TabSubMenuComponent } from './components/template/tab-sub-menu/tab-sub-menu.component';
 
 // components
 import { PubSubModule } from 'angular7-pubsub';
@@ -57,8 +60,7 @@ import { initializer } from './utils/app-init';
 
 //pages
 import { TesteComponent } from './pages/teste/teste.component';
-import { FooterComponent } from './components/template/footer/footer.component';
-import { TabMenuComponent } from './components/template/tab-menu/tab-menu.component';
+
 import { CadastrarEmpresaComponent } from './pages/empresa/empresa/cadastrar-empresa/cadastrar-empresa.component';
 import { ListaProdutoComponent } from './pages/empresa/produto/lista-produto/lista-produto.component';
 import { CadastrarProdutoComponent } from './pages/empresa/produto/cadastrar-produto/cadastrar-produto.component';
@@ -83,6 +85,9 @@ import { ListaSuiteDeTesteComponent } from './pages/projeto-de-teste/suite-de-te
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard/dashboard.component';
 import { CadastrarBaselineComponent } from './pages/plano-de-teste/baseline/cadastrar-baseline/cadastrar-baseline.component';
 import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-baseline/lista-baseline.component';
+import { CadastrarContatoComponent } from './pages/empresa/fornecedor/cadastrar-contato/cadastrar-contato.component';
+import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/lista-contato.component';
+
 
 @NgModule({
   declarations: [
@@ -95,6 +100,7 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
     FooterComponent,
     ErrorMsgComponent,
     TabMenuComponent,
+    TabSubMenuComponent,
     CadastrarEmpresaComponent,
     ListaProdutoComponent,
     CadastrarProdutoComponent,
@@ -122,7 +128,9 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
     CadastrarBaselineComponent,
     ListaBaselineComponent,
     ConfirmDialogComponent,
-    FormDialogComponent
+    FormDialogComponent,
+    CadastrarContatoComponent,
+    ListaContatoComponent
   ],
   imports: [
     BrowserModule,

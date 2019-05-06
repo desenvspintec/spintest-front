@@ -38,7 +38,7 @@ export class ListaEmpresaComponent implements OnInit {
   }
 
   tableDoubleClick(event) {
-    this.router.navigate(['cadastro/empresa/fornec/listafornecedor']);
+    this.router.navigate(['cadastro/empresa/fornecfodler/fornec/listafornecedor']);
   }
 
 }

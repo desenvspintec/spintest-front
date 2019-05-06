@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 // services
 import { MessageService } from 'primeng/api';
 import { FornecedorService } from 'src/app/service/fornecedor/fornecedor.service';
-import { FornecedorContatoService } from 'src/app/service/fornecedor_contato/fornecedor-contato.service';
 import { DataService } from 'src/app/components/services/data-service/data.service';
 import { CidadeService } from 'src/app/service/cidade/cidade.service';
 
@@ -22,12 +21,9 @@ export class CadastrarFornecedorComponent implements OnInit {
   public formFornecedor: FormGroup;
   public cidades: any[];
   public cidadesAutoComple: any[];
-
-  public formContato: FormGroup;
   public dialogTitle: string;
   public contatoSelecionado = {email: '', telCel: '', telFixo: '', ramal: ''};
   public contatoDialogVisible: boolean = false;
-  public contatos: any[] = [];
 
   public cols: any[] = [];
   public actions: any[] = [];
@@ -36,7 +32,6 @@ export class CadastrarFornecedorComponent implements OnInit {
   private _channelFornecedor: string = Channels.pages.cadastro.empresa.fornecedor;
 
   constructor(
-    private _fornecedorContatoService: FornecedorContatoService,
     private _fornecedorService: FornecedorService,
     private _cidadeService: CidadeService,
     private _formBuilder: FormBuilder,
@@ -68,11 +63,6 @@ export class CadastrarFornecedorComponent implements OnInit {
       fornecedor.situacao = fornecedor.situacao === "ATIVO";
     }
 
-    this._fornecedorContatoService
-      .findByFornecedorId(fornecedor.id, contatos => {
-        this.contatos = contatos || [];
-      });
-
     this.formFornecedor.setValue(fornecedor);
 
   }
@@ -90,22 +80,12 @@ export class CadastrarFornecedorComponent implements OnInit {
       cep: [''],
       bairro: [''],
       situacao: [''],
-      userId: [''],
       cidadeId: [''],
       empresaId: [''],
       createdAt: [''],
-      updatedAt: ['']
-    });
-
-    this.formContato = this._formBuilder.group({
-      id: [''],
-      nome: ['', [Validators.required]],
-      cargo: [''],
-      telFixo: [''],
-      fornecedorId: [''],
-      telCel: [''],
-      email: ['', [Validators.email]],
-      ramal: [''],
+      updatedAt: [''],
+      userId: [''],
+      updatedUserId: ['']
     });
   }
 
@@ -130,7 +110,7 @@ export class CadastrarFornecedorComponent implements OnInit {
   }
 
   public voltar(event) {
-    const backUrl = 'cadastro/empresa/fornec/listafornecedor';
+    const backUrl = 'cadastro/empresa/fornecfodler/fornec/listafornecedor';
     this._router.navigate([backUrl]);
   }
 
@@ -157,11 +137,6 @@ export class CadastrarFornecedorComponent implements OnInit {
 
     this._fornecedorService.save(fornecedor, fornecedor => {
 
-      this.contatos.forEach(contato => {
-        contato.fornecedorId = fornecedor.id;
-        this._fornecedorContatoService.save(contato, contato => { });
-      });
-
       fornecedor.situacao = fornecedor.situacao === "ATIVO";
       this.formFornecedor.setValue(fornecedor);
 
@@ -171,54 +146,6 @@ export class CadastrarFornecedorComponent implements OnInit {
       });
 
     });
-  }
-
-  public selecionaContato(event, contato, overlaypanel) {
-    this.contatoSelecionado = contato;
-    overlaypanel.toggle(event);
-  }
-
-  public showContatoDialog(contato) {
-
-    this.contatoDialogVisible = true;
-    this.dialogTitle = contato ? 'Alterar contato'
-      : 'Adicionar contato';
-
-    if (contato) {
-      this.formContato.setValue(contato);
-      return;
-    }
-
-  }
-
-  public salvarContato(event): void {
-
-    if (this.formContato.invalid) {
-      return;
-    }
-
-    this.contatoDialogVisible = false;
-    const contato = this.formContato.getRawValue();
-
-    if (contato.id) {
-      const index = this.contatos.findIndex(v => v.id === contato.id);
-      this.contatos[index] = contato;
-      return;
-    }
-
-    this.contatos.push(contato);
-  }
-
-  public deleteContato(contato): void {
-
-    this._messageService.add({
-      severity: 'success',
-      detail: 'Contato excluído com sucesso!'
-    });
-
-    const index = this.contatos.indexOf(contato);
-    this.contatos.splice(index, 1);
-
   }
 
 }

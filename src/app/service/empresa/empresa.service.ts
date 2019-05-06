@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EmpresaService {
-  url = 'rs/v1/empresa';
+  url = 'rs/v1/query/empresa';
 
   constructor(private http: HttpClient) { }
 

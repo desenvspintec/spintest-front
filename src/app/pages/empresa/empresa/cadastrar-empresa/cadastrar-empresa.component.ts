@@ -34,7 +34,9 @@ export class CadastrarEmpresaComponent implements OnInit {
       id: [''],
       nome: ['', Validators.required],
       createdAt: [''],
-      updatedAt: ['']
+      updatedAt: [''],
+      userId: [''],
+      updatedUserId: ['']
     });
 
     const empresa = this._dataService.getData(this._channelEmpresa);

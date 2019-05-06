@@ -9,6 +9,7 @@ import { DataService } from 'src/app/components/services/data-service/data.servi
 import { PubSubService } from 'angular7-pubsub';
 import { MessageService } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
+import { TabSubMenuService } from 'src/app/components/services/tab-menu/tab-sub-menu.service';
 
 @Injectable()
 export class AuthGuard extends KeycloakAuthGuard {
@@ -16,6 +17,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     protected keycloakAngular: KeycloakService,
     private breadcrumbService: BreadcrumbService,
     private tabMenuService: TabMenuService,
+    private tabSubMenuService: TabSubMenuService,
     private dataService: DataService,
     private pubSubService: PubSubService,
     private messageService: MessageService) {
@@ -26,6 +28,7 @@ export class AuthGuard extends KeycloakAuthGuard {
 
     return new Promise(async (resolve, reject) => {
       this.tabMenuService.visible = false;
+      this.tabSubMenuService.visible = false;
       this.setBreadCrumb(route);
       this.setCrud(route);
       this.setTabMenu(route);
@@ -33,33 +36,32 @@ export class AuthGuard extends KeycloakAuthGuard {
       this.setRequired(route);
       setTimeout(() => {
         this.tabMenuService.visible = true;
+        this.tabSubMenuService.visible = true;
       }, 5);
 
-      if (environment.production) {
-        if (!this.authenticated) {
-          this.keycloakAngular.login();
-          return;
-        }
 
-        const requiredRoles = route.data.roles;
-        if (!requiredRoles || requiredRoles.length === 0) {
-          return resolve(true);
-        } else {
-          if (!this.roles || this.roles.length === 0) {
-            resolve(false);
-          }
-          let granted: boolean = false;
-          for (const requiredRole of requiredRoles) {
-            if (this.roles.indexOf(requiredRole) > -1) {
-              granted = true;
-              break;
-            }
-          }
-          resolve(granted);
-        }
-      } else {
-        return resolve(true);
+      if (!this.authenticated) {
+        this.keycloakAngular.login();
+        return;
       }
+
+      const requiredRoles = route.data.roles;
+      if (!requiredRoles || requiredRoles.length === 0) {
+        return resolve(true);
+      } else {
+        if (!this.roles || this.roles.length === 0) {
+          resolve(false);
+        }
+        let granted: boolean = false;
+        for (const requiredRole of requiredRoles) {
+          if (this.roles.indexOf(requiredRole) > -1) {
+            granted = true;
+            break;
+          }
+        }
+        resolve(granted);
+      }
+
     });
   }
 
@@ -175,6 +177,7 @@ export class AuthGuard extends KeycloakAuthGuard {
 
   setTabMenu(route: ActivatedRouteSnapshot) {
     this.tabMenuService.items = [];
+    this.tabSubMenuService.items = [];
     route.pathFromRoot.forEach(path => {
       Project.pages.forEach(page => {
         if (path.routeConfig) {
@@ -190,6 +193,11 @@ export class AuthGuard extends KeycloakAuthGuard {
 
       if (page.children && page.tabMenu) {
         this.tabMenuService.items = this.pageListToItemList(page.children.filter(pg => {
+          return pg.label;
+        }));
+      }
+      if (page.children && page.tabSubMenu) {
+        this.tabSubMenuService.items = this.pageListToItemList(page.children.filter(pg => {
           return pg.label;
         }));
       }

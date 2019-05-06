@@ -9,7 +9,9 @@ export const Channels = {
 
                 produto: 'pages.cadastro.empresa.produto',
 
-                funcionalidade: 'pages.cadastro.empresa.funcionalidade'
+                funcionalidade: 'pages.cadastro.empresa.funcionalidade',
+
+                contato: 'pages.cadastro.empresa.contato'
             },
             projeto_de_teste: {
                 projeto_de_teste : 'pages.cadastro.projeto_de_teste.projeto_de_teste',
