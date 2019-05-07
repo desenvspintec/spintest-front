@@ -89,6 +89,7 @@ import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-ba
 import { CadastrarContatoComponent } from './pages/empresa/fornecedor/cadastrar-contato/cadastrar-contato.component';
 import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/lista-contato.component';
 import { ListaCasoPlanejadoComponent } from './pages/plano-de-teste/caso-planejado/lista-caso-planejado/lista-caso-planejado.component';
+import { ExecucaoComponent } from './pages/execucao/execucao/execucao/execucao.component';
 
 
 @NgModule({
@@ -133,7 +134,8 @@ import { ListaCasoPlanejadoComponent } from './pages/plano-de-teste/caso-planeja
     FormDialogComponent,
     CadastrarContatoComponent,
     ListaContatoComponent,
-    ListaCasoPlanejadoComponent
+    ListaCasoPlanejadoComponent,
+    ExecucaoComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,8 @@ export const Menu = {
         label: 'Planejamento',
         routerLink: 'planejamento',
         items: [
-            { label: 'Planos de Teste', icon: 'pi pi-folder-open text-green', routerLink: 'planejamento/planodeteste' }
+            { label: 'Planos de Teste', icon: 'pi pi-folder-open text-brown', routerLink: 'planejamento/planodeteste' },
+            { label: 'Execução', icon: 'pi pi-chevron-circle-right text-green', routerLink: 'planejamento/execucao' }
         ]
     }]
 }

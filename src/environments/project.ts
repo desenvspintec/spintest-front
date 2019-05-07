@@ -22,6 +22,7 @@ import { PassoTesteFolder } from './projeto-de-teste/passo-de-teste/passo-de-tes
 import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-teste';
 import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
 import { CasoPlanejadoFolder } from './plano-de-teste/caso-planejado/caso-planejado';
+import { ExecucaoComponent } from 'src/app/pages/execucao/execucao/execucao/execucao.component';
 
 export const Project = {
     menu: Menu,
@@ -112,6 +113,13 @@ export const Project = {
                         CasoPlanejadoFolder,
                         { path: '**', pathMatch: 'full', redirectTo: 'plteste' }
                     ],
+                },
+                {
+                    label: 'Execução',
+                    path: 'execucao',
+                    routerLink: 'execucao',
+                    canActivate: [AuthGuard],
+                    component: ExecucaoComponent
                 },
                 { path: '**', pathMatch: 'full', redirectTo: 'planejamento' }
             ]
