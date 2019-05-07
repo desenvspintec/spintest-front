@@ -1,41 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+
+// services
+import { PlanoTesteService } from 'src/app/service/plano-teste/plano-teste.service';
+
+// environments
 import { Channels } from 'src/environments/channels';
-import { DataService } from 'src/app/components/services/data-service/data.service';
+
+// rxjs
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-plano-de-teste',
   templateUrl: './lista-plano-de-teste.component.html',
   styleUrls: ['./lista-plano-de-teste.component.css']
 })
-export class ListaPlanoDeTesteComponent implements OnInit {
+export class ListaPlanoDeTesteComponent implements OnInit, OnDestroy {
 
+  public data: any[] = [];
+  public cols: any[] = [];
+  public actions: any[] = [];
+  public title: any = "Planos de Teste";
+  public channel: any = Channels.pages.planejamento.plano_de_teste.plano_de_teste;
 
-  data: any[];
-  cols: any[];
-  actions: any[];
-  title: any = "Plano de Teste";
-  channel: any = Channels.pages.planejamento.plano_de_teste.plano_de_teste;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
-  constructor(private router: Router,
-    private dataService: DataService) { }
+  constructor(
+    private _router: Router,
+    private _planoTesteService: PlanoTesteService
+  ) { }
 
   ngOnInit() {
+
     this.cols = [
+      { field: 'id', header: 'Código', style: 'text-align: left;' },
       { field: 'descricao', header: 'Descrição', style: 'text-align: left;' },
       { field: 'dataInicio', header: 'Data Início', style: 'text-align: center;' },
       { field: 'dataFinal', header: 'Data Fim', style: 'text-align: center;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: left;' }
-
     ];
-    this.actions = [];
-   /* this.empresaService.findAll((pessoas) => {
-      this.data = pessoas;
-    });*/
+
+    this._planoTesteService
+      .findAll()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(planos => this.data = planos);
+
+  }
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   tableDoubleClick(event) {
-   
+    const navigateUrl = 'planejamento/planodeteste/base/listabaseline';
+    this._router.navigate([navigateUrl]);
   }
 
 }

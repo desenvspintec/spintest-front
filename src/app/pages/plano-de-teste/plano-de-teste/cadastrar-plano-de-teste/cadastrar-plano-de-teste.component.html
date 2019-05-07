@@ -1,6 +1,118 @@
-<form name="form" [formGroup]="form" (ngSubmit)="salvar()" class="layout-form-page">
-  <app-form  (voltar)="voltar($event)" title="Plano de Teste">
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [form]="form" title="Plano de Teste - Cadastro">
 
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="empresa">Empresa:</label>
+            <div class="u-inputgroup input-group app-input">
+              <p-dropdown [options]="empresas" placeholder="Selecione a empresa" formControlName="empresaId"
+                filter="true">
+                <ng-template let-group pTemplate="group">
+                  <span style="margin-left:.25em">{{group.label}}</span>
+                </ng-template>
+              </p-dropdown>
+              <app-error-msg [control]="form.get('empresaId')" label="Empresa"></app-error-msg>
+            </div>
+          </div>
+        </div>
 
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="produto">Produto:</label>
+            <div class="u-inputgroup input-group app-input">
+              <p-dropdown [options]="groupedProdutos" [group]="true" placeholder="Selecione o produto"
+                [disabled]="!form.get('empresaId').value" formControlName="produtoId" filter="true">
+                <ng-template let-group pTemplate="group">
+                  <span style="margin-left:.25em">{{group.label}}</span>
+                </ng-template>
+              </p-dropdown>
+              <app-error-msg [control]="form.get('produtoId')" label="Produto"></app-error-msg>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="projetoteste">Projeto Teste:</label>
+            <div class="u-inputgroup input-group app-input">
+              <p-dropdown [options]="projetos" placeholder="Selecione o projeto"
+                [disabled]="!form.get('produtoId').value" formControlName="projetoTesteId" filter="true">
+                <ng-template let-group pTemplate="group">
+                  <span style="margin-left:.25em">{{group.label}}</span>
+                </ng-template>
+              </p-dropdown>
+              <app-error-msg [control]="form.get('projetoTesteId')" label="Projeto teste"></app-error-msg>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="descricao">Descrição:</label>
+            <div class="u-inputgroup input-group app-input">
+              <input id="descricao" type="text" placeholder="Descrição" pInputText formControlName="descricao">
+              <app-error-msg [control]="form.get('descricao')" label="Descrição"></app-error-msg>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="situacao">Situação:</label>
+            <div class="u-inputgroup input-group">
+              <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">
+              </p-inputSwitch>
+              <app-error-msg [control]="form.get('situacao')" label="Situação"></app-error-msg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ui-g-12 ui-md-6">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-6">
+            <div class="u-inputgroup ">
+              <label for="dataInicio">Data de Início:</label>
+              <div class="u-inputgroup input-group app-input">
+                <p-calendar placeholder="Data de início" formControlName="dataInicio"></p-calendar>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-g-12 ui-md-6">
+            <div class="u-inputgroup ">
+              <label for="dataFinal">Data Final:</label>
+              <div class="u-inputgroup input-group app-input">
+                <p-calendar placeholder="Data final" formControlName="dataFinal"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+          <div class="u-inputgroup ui-g-12 ui-md-12">
+            <label for="versaoProduto">Versão do Produto:</label>
+            <div class="u-inputgroup input-group app-input">
+              <input id="versaoProduto" type="text" placeholder="Versão do Produto" pInputText
+                formControlName="versaoProduto">
+              <app-error-msg [control]="form.get('versaoProduto')" label="Versão do produto"></app-error-msg>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-12">
+            <div class="u-inputgroup input-group">
+              <label for="observacao">Observações:</label>
+              <p-editor formControlName="observacao" [style]="{'height':'100px'}"></p-editor>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </app-form>
 </form>

@@ -2,7 +2,7 @@
   <app-form (voltar)="voltar($event)" [title]="form.value.descricao" [form]="form">
 
     <div class="ui-g ui-fluid">
-      <div class="ui-g-12 ui-md-4">
+      <div class="ui-g-12 ui-md-7">
         <div class="u-inputgroup ">
           <label for="descricao">Descrição:</label>
           <div class="u-inputgroup input-group app-input">
@@ -15,8 +15,8 @@
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-7">
-        <label for="objetivo">Objetivo:</label>
-        <div class="u-inputgroup input-group  ">
+        <div class="u-inputgroup input-group">
+          <label for="objetivo">Objetivo:</label>
           <p-editor formControlName="objetivo" [style]="{'height':'100px'}"></p-editor>
         </div>
       </div>
@@ -25,8 +25,8 @@
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-7">
-        <label for="condicoes">Pré-Condições:</label>
-        <div class="u-inputgroup input-group  ">
+        <div class="u-inputgroup input-group">
+          <label for="condicoes">Pré-Condições:</label>
           <p-editor formControlName="condicoes" [style]="{'height':'100px'}"></p-editor>
         </div>
       </div>
@@ -34,20 +34,18 @@
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-4">
-        <div class="u-inputgroup ">
+        <div class="u-inputgroup input-group app-input">
           <label for="tempo_execucao">Tempo execução (min):</label>
-          <div class="u-inputgroup input-group app-input">
-            <input id="tempo_execucao" type="text" placeholder="Tempo de Execução (minutos)" pInputText
-              formControlName="tempoExecucao">
-            <app-error-msg [control]="form.get('tempoExecucao')" label="Tempo de execução"></app-error-msg>
-          </div>
+          <input id="tempo_execucao" type="number" placeholder="Tempo de Execução (minutos)" pInputText
+            formControlName="tempoExecucao">
+          <app-error-msg [control]="form.get('tempoExecucao')" label="Tempo de execução"></app-error-msg>
         </div>
       </div>
     </div>
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-12">
-        <div class="u-inputgroup ">
+        <div class="u-inputgroup">
           <label for="situacao">Situação:</label>
           <div class="u-inputgroup input-group">
             <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">

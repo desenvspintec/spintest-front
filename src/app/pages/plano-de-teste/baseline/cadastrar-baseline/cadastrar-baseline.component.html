@@ -1,3 +1,77 @@
-<p>
-  cadastrar-baseline works!
-</p>
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [form]="form" title="Baseline - Cadastro">
+
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="descricao">Descrição:</label>
+        <div class="u-inputgroup input-group app-input">
+          <input id="descricao" type="text" placeholder="Descrição" pInputText formControlName="descricao">
+          <app-error-msg [control]="form.get('descricao')" label="Descrição"></app-error-msg>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-3">
+        <div class="u-inputgroup ">
+          <label for="dataInicio">Data de Início:</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-calendar placeholder="Data de início" formControlName="dataInicio"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3">
+        <div class="u-inputgroup ">
+          <label for="dataFinal">Data Final:</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-calendar placeholder="Data final" formControlName="dataFinal"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-3">
+        <div class="u-inputgroup ">
+          <label for="horaInicio">Hora de Início:</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-calendar placeholder="Hora de início" [timeOnly]="true" formControlName="horaInicio"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3">
+        <div class="u-inputgroup ">
+          <label for="horaFinal">Hora Final:</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-calendar placeholder="Hora final" [timeOnly]="true" formControlName="horaFinal"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="usuarioExecutor">Usuário Executor:</label>
+        <div class="u-inputgroup input-group app-input">
+          <p-dropdown [options]="[]" placeholder="Selecione" formControlName="userExecutorId" filter="true">
+          </p-dropdown>
+          <app-error-msg [control]="form.get('userExecutorId')" label="Usuário executor"></app-error-msg>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="situacao">Situação:</label>
+        <div class="u-inputgroup input-group">
+          <p-inputSwitch name="situacao" binary="true" [formControl]="form.controls['situacao']">
+          </p-inputSwitch>
+          <app-error-msg [control]="form.get('situacao')" label="Situação"></app-error-msg>
+        </div>
+      </div>
+    </div>
+
+  </app-form>
+</form>

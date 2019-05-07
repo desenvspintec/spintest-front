@@ -21,6 +21,7 @@ import { PassoTesteFolder } from './projeto-de-teste/passo-de-teste/passo-de-tes
 // Plano de teste folders
 import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-teste';
 import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
+import { CasoPlanejadoFolder } from './plano-de-teste/caso-planejado/caso-planejado';
 
 export const Project = {
     menu: Menu,
@@ -108,6 +109,7 @@ export const Project = {
                     children: [
                         PlanoDeTesteFolder,
                         BaseLineFolder,
+                        CasoPlanejadoFolder,
                         { path: '**', pathMatch: 'full', redirectTo: 'plteste' }
                     ],
                 },

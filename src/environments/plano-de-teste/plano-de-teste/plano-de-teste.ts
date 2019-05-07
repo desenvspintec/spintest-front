@@ -5,7 +5,7 @@ import { CadastrarPlanoDeTesteComponent } from 'src/app/pages/plano-de-teste/pla
 import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
 
 export const PlanoDeTesteFolder =  {
-    label: 'Plano de teste',
+    label: 'Planos de teste',
     path: 'plteste',
     routerLink: 'plteste/listaplanodeteste',
     component: OutletComponent,

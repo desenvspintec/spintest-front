@@ -30,6 +30,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputMaskModule } from 'primeng/inputmask';
+import { CalendarModule } from 'primeng/calendar';
 
 // app components
 import { AppComponent } from './app.component';
@@ -87,6 +88,7 @@ import { CadastrarBaselineComponent } from './pages/plano-de-teste/baseline/cada
 import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-baseline/lista-baseline.component';
 import { CadastrarContatoComponent } from './pages/empresa/fornecedor/cadastrar-contato/cadastrar-contato.component';
 import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/lista-contato.component';
+import { ListaCasoPlanejadoComponent } from './pages/plano-de-teste/caso-planejado/lista-caso-planejado/lista-caso-planejado.component';
 
 
 @NgModule({
@@ -130,7 +132,8 @@ import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/
     ConfirmDialogComponent,
     FormDialogComponent,
     CadastrarContatoComponent,
-    ListaContatoComponent
+    ListaContatoComponent,
+    ListaCasoPlanejadoComponent
   ],
   imports: [
     BrowserModule,
@@ -163,6 +166,7 @@ import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/
     MenubarModule,
     TieredMenuModule,
     CheckboxModule,
+    CalendarModule,
     PubSubModule.forRoot()
   ],
   providers: [
@@ -173,11 +177,11 @@ import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/
       deps: [KeycloakService]
 
     },
-   /* {
-      provide: HTTP_INTERCEPTORS,
-      useClass: KeycloakBearerInterceptor,
-      multi: true
-    },*/
+    /* {
+       provide: HTTP_INTERCEPTORS,
+       useClass: KeycloakBearerInterceptor,
+       multi: true
+     },*/
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,

@@ -1,75 +1,72 @@
 <form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
   <app-form (voltar)="voltar($event)" [title]="form.value.nome" [form]="form">
 
-      <div class="ui-fluid ui-g">
-          <!-- LINE 1 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="nome">Nome</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="nome" type="text" placeholder="Nome" pInputText formControlName="nome">
-                <app-error-msg [control]="form.get('nome')" label="Nome"></app-error-msg>
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 1 -->
-    
-          <!-- LINE 2 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="cargo">Cargo</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="cargo" type="text" placeholder="Cargo" pInputText formControlName="cargo">
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 2 -->
-    
-          <!-- LINE 3 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="telefone">Telefone</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="telefone" type="text" placeholder="Telefone" pInputText formControlName="telFixo">
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 3 -->
-    
-          <!-- LINE 4 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="celular">Celular</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="celular" type="text" placeholder="Celular" pInputText formControlName="telCel">
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 4 -->
-    
-          <!-- LINE 5 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="email">Email</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="email" type="text" placeholder="Email" pInputText formControlName="email">
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 5 -->
-    
-          <!-- LINE 6 -->
-          <div class="ui-g-12 ui-md-12">
-            <div class="u-inputgroup ">
-              <label for="ramal">Ramal</label>
-              <div class="u-inputgroup input-group  ">
-                <input id="ramal" type="text" placeholder="Ramal" pInputText formControlName="ramal">
-              </div>
-            </div>
-          </div>
-          <!-- / LINE 6 -->
+    <!-- LINE 1 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="nome">Nome:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="nome" type="text" placeholder="Nome" pInputText formControlName="nome">
+          <app-error-msg [control]="form.get('nome')" label="Nome"></app-error-msg>
         </div>
-    
+      </div>
+    </div>
+    <!-- / LINE 1 -->
+
+    <!-- LINE 2 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="cargo">Cargo:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="cargo" type="text" placeholder="Cargo" pInputText formControlName="cargo">
+        </div>
+      </div>
+    </div>
+    <!-- / LINE 2 -->
+
+    <!-- LINE 3 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="telefone">Telefone:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="telefone" type="text" placeholder="Telefone" pInputText formControlName="telFixo">
+        </div>
+      </div>
+    </div>
+    <!-- / LINE 3 -->
+
+    <!-- LINE 4 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="celular">Celular:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="celular" type="text" placeholder="Celular" pInputText formControlName="telCel">
+        </div>
+      </div>
+    </div>
+    <!-- / LINE 4 -->
+
+    <!-- LINE 5 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="email">Email:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="email" type="text" placeholder="Email" pInputText formControlName="email">
+        </div>
+      </div>
+    </div>
+    <!-- / LINE 5 -->
+
+    <!-- LINE 6 -->
+    <div class="ui-g ui-fluid">
+      <div class="u-inputgroup ui-g-12 ui-md-6">
+        <label for="ramal">Ramal:</label>
+        <div class="u-inputgroup input-group  ">
+          <input id="ramal" type="text" placeholder="Ramal" pInputText formControlName="ramal">
+        </div>
+      </div>
+    </div>
+    <!-- / LINE 6 -->
 
   </app-form>
 </form>

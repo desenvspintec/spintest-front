@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 //rxjs
 import { Observable } from 'rxjs';
@@ -15,6 +15,21 @@ export class ProjetoTesteService {
 
   public findAll(): Observable<any[]> {
     return this._http.get<any[]>(this.url);
+  }
+
+  /**
+   * 
+   * @param empresaId 
+   * @param produtoId 
+   */
+  public findByEmpresaProdutoId(
+    empresaId: number,
+    produtoId: number): Observable<any[]> {
+    return this._http.get<any[]>(this.url, {
+      params: new HttpParams()
+        .set('empresaId', `${empresaId}`)
+        .set('produtoId', `${produtoId}`)
+    });
   }
 
   public save(body, success) {

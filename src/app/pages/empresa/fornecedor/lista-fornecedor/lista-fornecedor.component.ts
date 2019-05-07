@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
@@ -17,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './lista-fornecedor.component.html',
   styleUrls: ['./lista-fornecedor.component.css']
 })
-export class ListaFornecedorComponent implements OnInit {
+export class ListaFornecedorComponent implements OnInit, OnDestroy {
 
   public data: any[];
   public cols: any[];

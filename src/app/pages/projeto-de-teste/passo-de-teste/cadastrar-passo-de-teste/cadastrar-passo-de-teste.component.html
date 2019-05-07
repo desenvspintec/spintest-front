@@ -6,7 +6,7 @@
         <div class="u-inputgroup ">
           <label for="acao">Ação:</label>
           <div class="u-inputgroup input-group app-input">
-            <input id="acao" type="text" placeholder="Descrição" pInputText formControlName="acao">
+            <input id="acao" type="text" placeholder="Ação" pInputText formControlName="acao">
             <app-error-msg [control]="form.get('acao')" label="Ação"></app-error-msg>
           </div>
         </div>
@@ -15,8 +15,8 @@
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-7">
-        <label for="objetivo">Resultado esperado:</label>
-        <div class="u-inputgroup input-group  ">
+        <div class="u-inputgroup input-group">
+          <label for="objetivo">Resultado esperado:</label>
           <p-editor formControlName="objetivo" [style]="{'height':'100px'}"></p-editor>
         </div>
       </div>

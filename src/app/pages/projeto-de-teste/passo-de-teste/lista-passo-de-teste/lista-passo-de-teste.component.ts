@@ -8,6 +8,10 @@ import { DataService } from 'src/app/components/services/data-service/data.servi
 // channels
 import { Channels } from 'src/environments/channels';
 
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-lista-passo-de-teste',
   templateUrl: './lista-passo-de-teste.component.html',
@@ -15,17 +19,15 @@ import { Channels } from 'src/environments/channels';
 })
 export class ListaPassoDeTesteComponent implements OnInit {
 
-  public data = [
-    { codigo: 54347, id: 1, descricao: 'Projeto 1' }
-  ];
-
+  public data: any[] = [];
   public actions: any[] = [];
-  public cols: any[];
+  public cols: any[] = [];
   public title: string;
 
   public channel = Channels.pages.cadastro.projeto_de_teste.passo_de_teste;
 
   private _channelCasoTeste = Channels.pages.cadastro.projeto_de_teste.caso_de_teste;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
     private _router: Router,
@@ -34,6 +36,7 @@ export class ListaPassoDeTesteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.cols = [
       { field: 'codigo', header: 'Código', style: 'text-align: left;' },
       { field: 'acao', header: 'Ação do Passo', style: 'text-align: left;' },
@@ -48,15 +51,18 @@ export class ListaPassoDeTesteComponent implements OnInit {
     this.title = casoTeste.descricao;
 
     this._passoTesteService
-      .findByCasoTesteId(casoTeste.id, passos => {
-        this.data = passos;
-      });
+      .findByCasoTesteId(casoTeste.id)
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(passos => this.data = passos);
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   public tableDoubleClick(event) {
-    const navigateUrl = 'planejamento/planodeteste/plteste/listaplanodeteste';
-    this._router.navigate([navigateUrl]);
+    // const navigateUrl = 'planejamento/planodeteste/plteste/listaplanodeteste';
+    // this._router.navigate([navigateUrl]);
   }
-
-
 }

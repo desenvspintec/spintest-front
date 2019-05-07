@@ -37,7 +37,7 @@ export class TableFrontComponent implements OnInit {
       act.click = act.command;
       act.command = this.command.bind(this);
     });
-    this.actions.push(  {
+    this.actions.push({
       label: 'Alterar',
       icon: 'pi pi-pencil',
       command: this.alterar.bind(this)
@@ -50,14 +50,14 @@ export class TableFrontComponent implements OnInit {
     this.router.navigate([this.editUrl]);
   }
 
-  alterar(event){
+  alterar(event) {
     this.dataService.setData(this.chanelSelected, this.selectedData);
     this.router.navigate([this.editUrl]);
   }
 
   onRowSelect(event) {
     if (this.chanelSelected) {
-      this.dataService.setData(this.chanelSelected,event.data);
+      this.dataService.setData(this.chanelSelected, event.data);
     }
   }
 

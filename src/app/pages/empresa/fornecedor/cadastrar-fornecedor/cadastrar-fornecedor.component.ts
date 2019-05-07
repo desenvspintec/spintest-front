@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -16,13 +16,13 @@ import { Channels } from 'src/environments/channels';
   templateUrl: './cadastrar-fornecedor.component.html',
   styleUrls: ['./cadastrar-fornecedor.component.css']
 })
-export class CadastrarFornecedorComponent implements OnInit {
+export class CadastrarFornecedorComponent implements OnInit, OnDestroy {
 
   public formFornecedor: FormGroup;
   public cidades: any[];
   public cidadesAutoComple: any[];
   public dialogTitle: string;
-  public contatoSelecionado = {email: '', telCel: '', telFixo: '', ramal: ''};
+  public contatoSelecionado = { email: '', telCel: '', telFixo: '', ramal: '' };
   public contatoDialogVisible: boolean = false;
 
   public cols: any[] = [];
@@ -65,6 +65,9 @@ export class CadastrarFornecedorComponent implements OnInit {
 
     this.formFornecedor.setValue(fornecedor);
 
+  }
+
+  ngOnDestroy(): void {
   }
 
   private _buildForms(): void {

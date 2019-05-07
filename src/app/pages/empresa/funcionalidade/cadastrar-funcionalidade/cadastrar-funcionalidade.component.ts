@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './cadastrar-funcionalidade.component.html',
   styleUrls: ['./cadastrar-funcionalidade.component.css']
 })
-export class CadastrarFuncionalidadeComponent implements OnInit {
+export class CadastrarFuncionalidadeComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
@@ -47,6 +47,10 @@ export class CadastrarFuncionalidadeComponent implements OnInit {
     }
 
     this.form.setValue(this._funcionalidade);
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   private _buildForm(): void {

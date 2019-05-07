@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { Channels } from 'src/environments/channels';
   templateUrl: './cadastrar-produto.component.html',
   styleUrls: ['./cadastrar-produto.component.css']
 })
-export class CadastrarProdutoComponent implements OnInit {
+export class CadastrarProdutoComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
@@ -46,6 +46,10 @@ export class CadastrarProdutoComponent implements OnInit {
     }
 
     this.form.setValue(produto);
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   private _buildForm(): void {
@@ -88,7 +92,7 @@ export class CadastrarProdutoComponent implements OnInit {
     produto.deleted = false; // FIXME
 
     this._produtoService.save(produto, produto => {
-      
+
       produto.situacao = produto.situacao === "ATIVO";
       this.form.setValue(produto);
 

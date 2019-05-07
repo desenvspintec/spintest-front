@@ -36,7 +36,7 @@ export class CadastrarProjetoDeTesteComponent implements OnInit, OnDestroy {
     private _messageService: MessageService,
     private _projetoTesteService: ProjetoTesteService,
     private _empresaService: EmpresaService,
-    private _produtosService: ProdutoService,
+    private _produtoService: ProdutoService,
     private _fornecedorService: FornecedorService,
     private _dataService: DataService,
     private _formBuilder: FormBuilder,
@@ -99,7 +99,7 @@ export class CadastrarProjetoDeTesteComponent implements OnInit, OnDestroy {
   private _getProdutosEmpresaFornecedor(empresaId: number): Observable<any[]> {
     return forkJoin([
       this._fornecedorService.findByEmpresaId(empresaId),
-      this._produtosService.findByEmpresa(empresaId),
+      this._produtoService.findByEmpresa(empresaId),
       // Aguardo pelo retorno dos fonecedores e produtos
     ]).pipe(first(), map(([fornecedores, produtos]) => {
       const groupedProdutos = []

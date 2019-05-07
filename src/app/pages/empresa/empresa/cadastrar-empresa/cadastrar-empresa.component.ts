@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { Channels } from 'src/environments/channels';
   templateUrl: './cadastrar-empresa.component.html',
   styleUrls: ['./cadastrar-empresa.component.css']
 })
-export class CadastrarEmpresaComponent implements OnInit {
+export class CadastrarEmpresaComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
@@ -50,6 +50,10 @@ export class CadastrarEmpresaComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+
+  }
+  
   public salvar() {
 
     if (this.form.invalid) {

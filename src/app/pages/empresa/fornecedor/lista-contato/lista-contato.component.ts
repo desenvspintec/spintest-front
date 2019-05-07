@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Services
@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
   templateUrl: './lista-contato.component.html',
   styleUrls: ['./lista-contato.component.css']
 })
-export class ListaContatoComponent implements OnInit {
+export class ListaContatoComponent implements OnInit, OnDestroy {
 
   public data: any[];
   public cols: any[];

@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// rxjs
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PassoTesteService {
 
-  url = 'rs/v1/passoteste';
+  url = 'rs/v1/query/passoteste';
 
   constructor(private _http: HttpClient) { }
 
-  findByCasoTesteId(id, success) {
-    const observe = 'response';
-    return this._http.get(this.url + '/findbycasoteste/' + id, { observe })
-      .subscribe(response => {
-        success(response.body);
-      });
+  /**
+   * 
+   * @param id 
+   */
+  findByCasoTesteId(id: number): Observable<any[]> {
+    return this._http.get<any[]>(this.url + '?casoTesteId=' + id);
   }
 
   save(body, success) {

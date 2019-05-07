@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// rxjs
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CasoTesteService {
 
-  url = 'rs/v1/casoteste';
+  url = 'rs/v1/query/casoteste';
 
   constructor(private _http: HttpClient) { }
 
-  findBySuiteTesteId(id, success) {
-    const observe = 'response';
-    return this._http.get(this.url + '/findbysuiteteste/' + id, { observe })
-      .subscribe(response => {
-        success(response.body);
-      });
+  findBySuiteTesteId(id: number): Observable<any[]> {
+    return this._http.get<any[]>(this.url + '?suiteTesteId=' + id);
   }
 
   save(body, success) {
