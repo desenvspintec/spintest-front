@@ -47,7 +47,7 @@ export class CadastrarSuiteDeTesteComponent implements OnInit {
     this.form = this._formBuilder.group({
       id: [''],
       descricao: ['', Validators.required],
-      observacao: [''],
+      objetivo: [''],
       empresaId: [''],
       userId: [''],
       situacao: [''],
@@ -59,7 +59,7 @@ export class CadastrarSuiteDeTesteComponent implements OnInit {
   private _getDataWithIdsRelation(): any {
     const formValue = this.form.getRawValue();
     const projeto = this._dataService.getData(this._channelProjeto);
-    formValue.projetoId = projeto.id;
+    formValue.projetoTesteId = projeto.id;
     formValue.empresaId = projeto.empresaId;
     return formValue;
   }
