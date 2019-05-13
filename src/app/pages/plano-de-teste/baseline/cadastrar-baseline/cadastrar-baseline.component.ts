@@ -29,6 +29,10 @@ export class CadastrarBaselineComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  public salvar(){
+    
+  }
+
   private _buildForm(): void {
     this.form = this._formBuilder.group({
       id: [''],

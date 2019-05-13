@@ -33,4 +33,7 @@ export class ListaCasoPlanejadoComponent implements OnInit {
     this._router.navigate([navigateUrl]);
   }
 
+  public salvar(){
+    
+  }
 }
