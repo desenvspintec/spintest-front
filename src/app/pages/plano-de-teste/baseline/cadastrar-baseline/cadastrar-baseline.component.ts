@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 //rxjs
@@ -29,24 +29,24 @@ export class CadastrarBaselineComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  public salvar(){
-    
+  public salvar() {
+
   }
 
   private _buildForm(): void {
     this.form = this._formBuilder.group({
       id: [''],
       descricao: ['', Validators.required],
-      planoTesteId: ['', Validators.required],
-      empresaId: ['', Validators.required],
+      planoTesteId: [''],
+      empresaId: [''],
       userExecutorId: [''],
       updatedUserId: [''],
       userId: [''],
       situacao: [''],
-      dataInicio: [''],
-      dataFinal: [''],
-      horaInicio: [''],
-      horaFinal: [''],
+      dataInicio: ['', [Validators.required, validaData]],
+      dataFinal: ['', [Validators.required, validaData]],
+      horaInicio: ['', Validators.required],
+      horaFinal: ['', Validators.required],
       updatedAt: [''],
       createdAt: [''],
     });
@@ -59,3 +59,25 @@ export class CadastrarBaselineComponent implements OnInit, OnDestroy {
 
 
 }
+
+function validaData(control: AbstractControl): object {
+
+  if (!control.parent || !control) {
+    return;
+  }
+
+  const dataInicio = control.parent.get('dataInicio');
+  const dataFinal = control.parent.get('dataFinal');
+
+  if (dataInicio && dataFinal) {
+    if ((dataFinal.value < dataInicio.value) ||
+      dataInicio.value > dataFinal.value) {
+      return {
+        invalid: true
+      };
+    }
+  }
+
+
+}
+

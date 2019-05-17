@@ -54,7 +54,7 @@ export class ListaBaselineComponent implements OnInit, OnDestroy {
   }
 
   tableDoubleClick(event) {
-    const navigateUrl = 'planejamento/planodeteste/base/caso/listacasoplanejado';
+    const navigateUrl = 'planejamento/planodeteste/base/caso/cadastrarcasoplanejado';
     this._router.navigate([navigateUrl]);
   }
 }

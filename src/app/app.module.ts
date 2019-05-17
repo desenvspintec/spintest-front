@@ -1,8 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Locale
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt';
+registerLocaleData(pt);
 
 // primeng components
 import { PanelModule } from 'primeng/panel';
@@ -31,6 +36,9 @@ import { ConfirmationService } from 'primeng/api';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
+import { TreeModule } from 'primeng/tree';
+import { CardModule } from 'primeng/card';
+import { AccordionModule } from 'primeng/accordion';
 
 // app components
 import { AppComponent } from './app.component';
@@ -88,9 +96,11 @@ import { CadastrarBaselineComponent } from './pages/plano-de-teste/baseline/cada
 import { ListaBaselineComponent } from './pages/plano-de-teste/baseline/lista-baseline/lista-baseline.component';
 import { CadastrarContatoComponent } from './pages/empresa/fornecedor/cadastrar-contato/cadastrar-contato.component';
 import { ListaContatoComponent } from './pages/empresa/fornecedor/lista-contato/lista-contato.component';
-import { ListaCasoPlanejadoComponent } from './pages/plano-de-teste/caso-planejado/lista-caso-planejado/lista-caso-planejado.component';
+import { CadastrarCasoPlanejadoComponent } from './pages/plano-de-teste/caso-planejado/cadastrar-caso-planejado/cadastrar-caso-planejado.component';
 import { ExecucaoComponent } from './pages/execucao/execucao/execucao/execucao.component';
-
+import { ListaUsuarioComponent } from './pages/configuracoes/usuario/lista-usuario/lista-usuario.component';
+import { CadastrarUsuarioComponent } from './pages/configuracoes/usuario/cadastrar-usuario/cadastrar-usuario.component';
+import { PerfilUsuarioComponent } from './pages/configuracoes/usuario/perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -134,8 +144,11 @@ import { ExecucaoComponent } from './pages/execucao/execucao/execucao/execucao.c
     FormDialogComponent,
     CadastrarContatoComponent,
     ListaContatoComponent,
-    ListaCasoPlanejadoComponent,
-    ExecucaoComponent
+    CadastrarCasoPlanejadoComponent,
+    ExecucaoComponent,
+    ListaUsuarioComponent,
+    CadastrarUsuarioComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -169,6 +182,9 @@ import { ExecucaoComponent } from './pages/execucao/execucao/execucao/execucao.c
     TieredMenuModule,
     CheckboxModule,
     CalendarModule,
+    TreeModule,
+    CardModule,
+    AccordionModule,
     PubSubModule.forRoot()
   ],
   providers: [
@@ -188,6 +204,10 @@ import { ExecucaoComponent } from './pages/execucao/execucao/execucao/execucao.c
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR'
     },
     MessageService,
     AuthGuard,

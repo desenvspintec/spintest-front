@@ -2,33 +2,25 @@ import { OutletComponent } from 'src/app/components/outlet/outlet.component';
 import { Channels } from 'src/environments/channels';
 import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
 
-import { ListaCasoPlanejadoComponent } from 'src/app/pages/plano-de-teste/caso-planejado/lista-caso-planejado/lista-caso-planejado.component';
+import { CadastrarCasoPlanejadoComponent } from 'src/app/pages/plano-de-teste/caso-planejado/cadastrar-caso-planejado/cadastrar-caso-planejado.component';
 
 export const CasoPlanejadoFolder =  {
     label: 'Casos planejados',
     path: 'caso',
-    routerLink: 'caso/listacasoplanejado',
+    routerLink: 'caso/cadastrarcasoplanejado',
     component: OutletComponent,
     crud: true,
     canActivate: [AuthGuard],
     selectedResource: Channels.pages.planejamento.plano_de_teste.caso_planejado,
     children: [
         { 
-            label: 'Lista de casos planejados', 
-            routerLink: 'listacasoplanejado', 
-            path: 'listacasoplanejado', 
-            component: ListaCasoPlanejadoComponent,
+            label: 'Casos planejados', 
+            routerLink: 'cadastrarcasoplanejado', 
+            path: 'cadastrarcasoplanejado', 
+            component: CadastrarCasoPlanejadoComponent,
             canActivate: [AuthGuard], 
             crudList: true,
         },
-        // { 
-        //     label: 'Cadastro de Plano de Teste', 
-        //     routerLink: 'cadastroplanodeteste', 
-        //     path: 'cadastroplanodeteste', 
-        //     component: CadastrarPlanoDeTesteComponent,
-        //     canActivate: [AuthGuard], 
-        //     crudForm: true
-        // },
-        { path: '**', pathMatch: 'full', redirectTo: 'listacasoplanejado' }
+        { path: '**', pathMatch: 'full', redirectTo: 'cadastrarcasoplanejado' }
     ]
 }

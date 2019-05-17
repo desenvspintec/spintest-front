@@ -10,6 +10,8 @@ import { EmpresaService } from 'src/app/service/empresa/empresa.service';
 // environments
 import { Channels } from 'src/environments/channels';
 
+import { KeycloakService } from 'keycloak-angular';
+
 @Component({
   selector: 'app-cadastrar-empresa',
   templateUrl: './cadastrar-empresa.component.html',
@@ -22,6 +24,7 @@ export class CadastrarEmpresaComponent implements OnInit, OnDestroy {
   private _channelEmpresa = Channels.pages.cadastro.empresa.empresa;
 
   constructor(
+    private _keycloak: KeycloakService,
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _empresaService: EmpresaService,
@@ -39,6 +42,8 @@ export class CadastrarEmpresaComponent implements OnInit, OnDestroy {
       updatedUserId: ['']
     });
 
+    // this._keycloak.loadUserProfile().then(v => console.log(v.));
+
     const empresa = this._dataService.getData(this._channelEmpresa);
 
     if (!empresa) {
@@ -53,7 +58,7 @@ export class CadastrarEmpresaComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
   }
-  
+
   public salvar() {
 
     if (this.form.invalid) {

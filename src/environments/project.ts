@@ -3,6 +3,7 @@ import { AuthGuard } from 'src/app/routes/authguard/auth.guard';
 
 // Components
 import { DashboardComponent } from 'src/app/pages/dashboard/dashboard/dashboard/dashboard.component';
+import { ListaUsuarioComponent } from 'src/app/pages/configuracoes/usuario/lista-usuario/lista-usuario.component';
 import { TabMenuComponent } from 'src/app/components/template/tab-menu/tab-menu.component';
 import { OutletComponent } from 'src/app/components/outlet/outlet.component';
 
@@ -23,6 +24,8 @@ import { PlanoDeTesteFolder } from './plano-de-teste/plano-de-teste/plano-de-tes
 import { BaseLineFolder } from './plano-de-teste/baseline/baseline-folder';
 import { CasoPlanejadoFolder } from './plano-de-teste/caso-planejado/caso-planejado';
 import { ExecucaoComponent } from 'src/app/pages/execucao/execucao/execucao/execucao.component';
+import { CadastrarUsuarioComponent } from 'src/app/pages/configuracoes/usuario/cadastrar-usuario/cadastrar-usuario.component';
+import { PerfilUsuarioComponent } from 'src/app/pages/configuracoes/usuario/perfil-usuario/perfil-usuario.component';
 
 export const Project = {
     menu: Menu,
@@ -40,7 +43,7 @@ export const Project = {
                     routerLink: 'dashboard',
                     canActivate: [AuthGuard],
                     component: DashboardComponent
-                    
+
                 },
                 { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
             ]
@@ -123,7 +126,39 @@ export const Project = {
                 },
                 { path: '**', pathMatch: 'full', redirectTo: 'planejamento' }
             ]
-        }, {
+        },
+        {
+            label: 'Configurações',
+            path: 'configuracoes',
+            routerLink: 'configuracoes',
+            component: OutletComponent,
+            canActivate: [AuthGuard],
+            children: [
+                {
+                    label: 'Usuários',
+                    path: 'usuarios',
+                    routerLink: 'usuarios',
+                    canActivate: [AuthGuard],
+                    component: ListaUsuarioComponent
+                },
+                {
+                    label: 'Cadastro Usuários',
+                    path: 'usuarios/cadastro',
+                    routerLink: 'usuarios/cadastro',
+                    canActivate: [AuthGuard],
+                    component: CadastrarUsuarioComponent
+                },
+                {
+                    label: 'Perfil Usuário',
+                    path: 'usuarios/perfil',
+                    routerLink: 'usuarios/perfil',
+                    canActivate: [AuthGuard],
+                    component: PerfilUsuarioComponent
+                },
+                { path: '**', pathMatch: 'full', redirectTo: 'usuarios' }
+            ]
+        },
+        {
             path: '**',
             redirectTo: 'dash',
             pathMatch: 'full'

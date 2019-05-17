@@ -36,7 +36,7 @@ export class ListaSuiteDeTesteComponent implements OnInit {
   ngOnInit() {
 
     this.cols = [
-      { field: 'codigo', header: 'Código', style: 'text-align: left;' },
+      { field: 'id', header: 'Código', style: 'text-align: left;' },
       { field: 'descricao', header: 'Descrição', style: 'text-align: left;' },
       { field: 'produto', header: 'Produto', style: 'text-align: left;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: left;' }

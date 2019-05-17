@@ -36,8 +36,8 @@ export class ListaPlanoDeTesteComponent implements OnInit, OnDestroy {
     this.cols = [
       { field: 'id', header: 'Código', style: 'text-align: left;' },
       { field: 'descricao', header: 'Descrição', style: 'text-align: left;' },
-      { field: 'dataInicio', header: 'Data Início', style: 'text-align: center;' },
-      { field: 'dataFinal', header: 'Data Fim', style: 'text-align: center;' },
+      { field: 'dataInicio', header: 'Data Início', style: 'text-align: center;', mask: 'dd/MM/yyyy' },
+      { field: 'dataFinal', header: 'Data Fim', style: 'text-align: center;', mask: 'dd/MM/yyyy' },
       { field: 'situacao', header: 'Situação', style: 'text-align: left;' }
     ];
 

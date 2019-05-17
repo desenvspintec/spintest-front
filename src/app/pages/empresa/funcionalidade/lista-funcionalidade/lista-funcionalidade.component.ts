@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 // services
 import { FuncionalidadeService } from 'src/app/service/funcionalidade/funcionalidade.service';
@@ -29,8 +30,9 @@ export class ListaFuncionalidadeComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject();
 
   constructor(
-    private funcionalidadeService: FuncionalidadeService,
-    private dataService: DataService) { }
+    private _router: Router,
+    private _funcionalidadeService: FuncionalidadeService,
+    private _dataService: DataService) { }
 
   ngOnInit() {
 
@@ -40,10 +42,10 @@ export class ListaFuncionalidadeComponent implements OnInit, OnDestroy {
       { field: 'situacao', header: 'Situação', style: 'text-align: center;' },
     ];
 
-    const produto = this.dataService.getData(this._channelEmpresa);
+    const produto = this._dataService.getData(this._channelEmpresa);
     this.title = produto.descricao;
 
-    this.funcionalidadeService
+    this._funcionalidadeService
       .findByProdutoId(produto.id)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(funcionalidades => this.data = funcionalidades);
@@ -52,5 +54,10 @@ export class ListaFuncionalidadeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  public tableDoubleClick(event) {
+    const navigateUrl = 'projetodeteste/projeto/pro/listaprojeto';
+    this._router.navigate([navigateUrl]);
   }
 }

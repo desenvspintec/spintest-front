@@ -19,7 +19,6 @@ export class CadastrarCasoDeTesteComponent implements OnInit {
 
   public form: FormGroup;
 
-  private _channelEmpresa = Channels.pages.cadastro.empresa.empresa;
   private _channelCasoTeste = Channels.pages.cadastro.projeto_de_teste.caso_de_teste;
   private _channelSuiteTeste = Channels.pages.cadastro.projeto_de_teste.suite_de_teste;
 
@@ -49,11 +48,13 @@ export class CadastrarCasoDeTesteComponent implements OnInit {
     this.form = this._formBuilder.group({
       id: [''],
       descricao: ['', Validators.required],
-      condicoes: [''],
-      objetivo: [''],
-      tempoExecucao: [''],
+      condicoes: ['', Validators.required],
+      objetivo: ['', Validators.required],
+      tempoExecucao: ['', Validators.required],
       tipoTeste: [''],
       empresaId: [''],
+      updatedUserId: [''],
+      suiteTesteId: [''],
       userId: [''],
       situacao: [''],
       createdAt: [''],
@@ -63,9 +64,8 @@ export class CadastrarCasoDeTesteComponent implements OnInit {
 
   private _getDataWithIdsRelation(): any {
     const formValue = this.form.getRawValue();
-    const empresa = this._dataService.getData(this._channelEmpresa);
     const suiteTeste = this._dataService.getData(this._channelSuiteTeste);
-    formValue.empresaId = empresa.id;
+    formValue.empresaId = suiteTeste.empresaId;
     formValue.suiteTesteId = suiteTeste.id;
     return formValue;
   }
@@ -77,6 +77,8 @@ export class CadastrarCasoDeTesteComponent implements OnInit {
     }
 
     const suiteTeste = this._getDataWithIdsRelation();
+    suiteTeste.situacao = suiteTeste.situacao ? 'ATIVO' : 'INATIVO';
+    suiteTeste.tipoTeste = 'MANUAL';
 
     this._casoTesteService.save(suiteTeste, suite => {
       this.form.setValue(suite);

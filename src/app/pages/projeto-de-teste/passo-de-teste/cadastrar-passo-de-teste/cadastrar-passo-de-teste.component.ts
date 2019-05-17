@@ -53,21 +53,23 @@ export class CadastrarPassoDeTesteComponent implements OnInit {
     this.form = this._formBuilder.group({
       id: [''],
       acao: ['', Validators.required],
-      resultado: [''],
+      resultado: ['', Validators.required],
       empresaId: [''],
       casoTesteId: [''],
       tipoTeste: [''],
       userId: [''],
       situacao: [''],
-      sequencia: ['']
+      sequencia: [''],
+      updatedUserId: [''],
+      createdAt: [''],
+      updatedAt: ['']
     });
   }
 
   private _getDataWithIdsRelation(): any {
     const formValue = this.form.getRawValue();
-    const empresa = this._dataService.getData(this._channelEmpresa);
     const casoTeste = this._dataService.getData(this._channelCasoTeste);
-    formValue.empresaId = empresa.id;
+    formValue.empresaId = casoTeste.empresaId;
     formValue.casoTesteId = casoTeste.id;
     return formValue;
   }
@@ -85,6 +87,7 @@ export class CadastrarPassoDeTesteComponent implements OnInit {
 
     const passoTeste = this._getDataWithIdsRelation();
     passoTeste.situacao = passoTeste.situacao ? 'ATIVO' : 'INATIVO';
+    passoTeste.tipoTeste = 'MANUAL';
 
     this._passoTesteService.save(passoTeste, passoTeste => {
       passoTeste.situacao = passoTeste.situacao === "ATIVO";

@@ -28,8 +28,9 @@
     <div class="ui-g ui-fluid">
       <div class="u-inputgroup ui-g-12 ui-md-6">
         <label for="telefone">Telefone:</label>
-        <div class="u-inputgroup input-group  ">
-          <input id="telefone" type="text" placeholder="Telefone" pInputText formControlName="telFixo">
+        <div class="u-inputgroup input-group">
+          <p-inputMask mask="(99) 9999-9999" id="telefone" type="text" placeholder="Telefone" formControlName="telFixo">
+          </p-inputMask>
         </div>
       </div>
     </div>
@@ -39,8 +40,9 @@
     <div class="ui-g ui-fluid">
       <div class="u-inputgroup ui-g-12 ui-md-6">
         <label for="celular">Celular:</label>
-        <div class="u-inputgroup input-group  ">
-          <input id="celular" type="text" placeholder="Celular" pInputText formControlName="telCel">
+        <div class="u-inputgroup input-group">
+          <p-inputMask id="celular" mask="(99) 99999-9999" type="text" placeholder="Celular" formControlName="telCel">
+          </p-inputMask>
         </div>
       </div>
     </div>

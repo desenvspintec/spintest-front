@@ -10,6 +10,8 @@ import { ProdutoService } from 'src/app/service/produto/produto.service';
 import { first, map, takeUntil } from 'rxjs/operators';
 import { EmpresaService } from 'src/app/service/empresa/empresa.service';
 import { ProjetoTesteService } from 'src/app/service/projeto-teste/projeto-teste.service';
+import { PlanoTesteService } from 'src/app/service/plano-teste/plano-teste.service';
+import { PTBR } from 'src/app/utils/calendar';
 
 @Component({
   selector: 'app-cadastrar-plano-de-teste',
@@ -22,6 +24,7 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
   public empresas: any[] = [];
   public groupedProdutos: any[] = [];
   public projetos: any[] = [];
+  public ptBr = PTBR;
 
   private _channelPlanoTeste: string = Channels.pages.planejamento.plano_de_teste.plano_de_teste;
   private _unsubscribeAll: Subject<any> = new Subject();
@@ -33,8 +36,10 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
     private _messageService: MessageService,
     private _fornecedorService: FornecedorService,
     private _projetoTesteService: ProjetoTesteService,
+    private _planoTesteService: PlanoTesteService,
     private _produtoService: ProdutoService,
-    private _dataService: DataService) { }
+    private _dataService: DataService) {
+  }
 
   ngOnInit() {
     this._buildForm();
@@ -43,6 +48,8 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
     const planoTeste = this._dataService.getData(this._channelPlanoTeste);
 
     if (planoTeste) {
+      planoTeste.dataInicio = new Date(planoTeste.dataInicio);
+      planoTeste.dataFinal = new Date(planoTeste.dataFinal);
       this._updateFormValues(planoTeste);
     };
 
@@ -102,10 +109,11 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
       descricao: ['', Validators.required],
       empresaId: ['', Validators.required],
       userId: [''],
+      updatedUserId: [''],
       situacao: [''],
       dataInicio: [''],
       dataFinal: [''],
-      observacao: [''],
+      observacao: ['', Validators.required],
       versaoProduto: [''],
       updatedAt: [''],
       createdAt: [''],
@@ -178,10 +186,15 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
       return;
     }
 
-    /*  this.empresaService.save(this.form.value, empresa => {
-        this.form.setValue(empresa);
-        this.messageService.add({ severity: 'success', detail: 'Empresa salva com sucesso!' });
-      });*/
+    const planoTeste = this.form.getRawValue();
+    planoTeste.situacao = planoTeste.situacao ? 'ATIVO' : 'INATIVO';
+
+    this._planoTesteService.save(planoTeste, planoTeste => {
+      this._messageService.add({
+        severity: 'success',
+        detail: 'Plano de teste salvo com sucesso!'
+      });
+    });
   }
 
 }

@@ -1,0 +1,22 @@
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [form]="form">
+
+
+    <div class="ui-fluid ui-g">
+      <div class="ui-g-12 ui-md-5">
+        <p-card header="Fluxo de prescrição" [style]="{width: '100%'}">
+          <h5>Data início: 17/05/2019</h5>
+          <h5>Data término: 29/05/2019</h5>
+          <h5>Executor: Manuel</h5>
+        </p-card>
+      </div>
+
+      <div class="ui-g-12 ui-md-7">
+        <span>Casos disponíveis:</span>
+        <p-tree [value]="filesTree4" selectionMode="checkbox" [(selection)]="selectedFiles2"></p-tree>
+        <!-- <div>Selected Nodes: <span *ngFor="let file of selectedFiles2">{{file.label}} </span></div> -->
+      </div>
+    </div>
+
+  </app-form>
+</form>

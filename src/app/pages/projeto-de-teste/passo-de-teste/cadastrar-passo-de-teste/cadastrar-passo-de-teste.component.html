@@ -16,8 +16,8 @@
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-7">
         <div class="u-inputgroup input-group">
-          <label for="objetivo">Resultado esperado:</label>
-          <p-editor formControlName="objetivo" [style]="{'height':'100px'}"></p-editor>
+          <label for="resultado">Resultado esperado:</label>
+          <p-editor formControlName="resultado" [style]="{'height':'100px'}"></p-editor>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="u-inputgroup ">
           <label for="sequencia">Sequência de execução:</label>
           <div class="u-inputgroup input-group app-input">
-            <input id="sequencia" type="text" placeholder="Sequência de preenchimento" pInputText
+            <input id="sequencia" type="number" placeholder="Sequência de preenchimento" pInputText
               formControlName="sequencia">
             <small>Sequência em que o passo de teste ocorre.</small>
             <app-error-msg [control]="form.get('sequencia')" label="Sequencia de execução"></app-error-msg>

@@ -40,41 +40,13 @@ export class ListaCasoDeTesteComponent implements OnInit, OnDestroy {
       { field: 'id', header: 'Código', style: 'text-align: left;' },
       { field: 'descricao', header: 'Descrição', style: 'text-align: left;' },
       { field: 'objetivo', header: 'Objetivo', style: 'text-align: left;' },
-      { field: 'tempo_execucao', header: 'Tempo de Execução (MIN)', style: 'text-align: left;' },
-      { field: 'tipo_teste', header: 'Tipo de Execução', style: 'text-align: left;' },
+      { field: 'tempoExecucao', header: 'Tempo de Execução (MIN)', style: 'text-align: left;' },
+      { field: 'tipoTeste', header: 'Tipo de Execução', style: 'text-align: left;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: left;' }
     ];
 
     const suite = this._dataService.getData(this._channelSuiteTeste);
-    // ;this.title = suite.descricao;
-
-    setTimeout(() => {
-      this.data.push({
-        id: 1,
-        descricao: 'Registro de um novo paciente',
-        objetivo: 'Incluir um paciente no banco de dados',
-        tempo_execucao: 4,
-        situacao: 'ATIVO'
-      });
-
-      this.data.push({
-        id: 1,
-        descricao: 'Registro de um novo paciente',
-        objetivo: 'Incluir um paciente no banco de dados',
-        tempo_execucao: 4,
-        situacao: 'ATIVO'
-      });
-
-      this.data.push({
-        id: 1,
-        descricao: 'Registro de um novo paciente',
-        objetivo: 'Incluir um paciente no banco de dados',
-        tempo_execucao: 4,
-        situacao: 'ATIVO'
-      });
-    }, 5000);
-
-
+    this.title = suite.descricao;
 
     this._casoTesteService
       .findBySuiteTesteId(suite.id).

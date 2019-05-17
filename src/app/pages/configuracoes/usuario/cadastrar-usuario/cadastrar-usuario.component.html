@@ -1,0 +1,73 @@
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+  <app-form (voltar)="voltar($event)" [title]="form.value.nome" [form]="form">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="nome">Nome:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="nome" type="text" placeholder="Descrição" pInputText formControlName="nome">
+            <app-error-msg [control]="form.get('nome')" label="Nome"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="email">E-mail:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="email" type="text" placeholder="E-mail" pInputText formControlName="email">
+            <app-error-msg [control]="form.get('email')" label="E-mail"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="senha">Senha:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="senha" type="password" placeholder="Senha" pInputText formControlName="password">
+            <app-error-msg [control]="form.get('password')" label="Senha"></app-error-msg>
+          </div>
+        </div>
+        <small>Deixe o campo vazio caso não queira trocar a senha do mesmo.</small>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="confirmarSenha">Confirmar senha:</label>
+          <div class="u-inputgroup input-group app-input">
+            <input id="confirmarSenha" type="password" placeholder="Confirmar senha" pInputText
+              formControlName="passwordConfirm">
+            <app-error-msg [control]="form.get('passwordConfirm')" label="Confirmar senha"></app-error-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-4">
+        <div class="u-inputgroup ">
+          <label for="tipoAcesso">Tipo de Acesso:</label>
+          <div class="u-inputgroup input-group app-input">
+            <p-dropdown [options]="tiposAcesso" placeholder="Selecione" formControlName="tipoAcesso" filter="true">
+              <ng-template let-group pTemplate="group">
+                <span style="margin-left:.25em">{{group.label}}</span>
+              </ng-template>
+            </p-dropdown>
+            <app-error-msg [control]="form.get('tiposAcesso')" label="Tipo acesso"></app-error-msg>
+          </div>
+        </div>
+        <small>O Usuário cadatrado será vinculado às empresas atuais do usuário que estiver logado.</small>
+      </div>
+    </div>
+
+
+  </app-form>
+</form>

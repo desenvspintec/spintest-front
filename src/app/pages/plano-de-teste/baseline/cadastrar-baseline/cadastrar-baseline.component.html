@@ -17,6 +17,7 @@
           <label for="dataInicio">Data de Início:</label>
           <div class="u-inputgroup input-group app-input">
             <p-calendar placeholder="Data de início" formControlName="dataInicio"></p-calendar>
+            <app-error-msg [control]="form.get('dataInicio')" label="Data início"></app-error-msg>
           </div>
         </div>
       </div>
@@ -26,6 +27,7 @@
           <label for="dataFinal">Data Final:</label>
           <div class="u-inputgroup input-group app-input">
             <p-calendar placeholder="Data final" formControlName="dataFinal"></p-calendar>
+            <app-error-msg [control]="form.get('dataFinal')" label="Data final"></app-error-msg>
           </div>
         </div>
       </div>
@@ -36,7 +38,8 @@
         <div class="u-inputgroup ">
           <label for="horaInicio">Hora de Início:</label>
           <div class="u-inputgroup input-group app-input">
-            <p-calendar placeholder="Hora de início" [timeOnly]="true" formControlName="horaInicio"></p-calendar>
+            <p-calendar placeholder="Hora de início" type="time" [timeOnly]="true" formControlName="horaInicio">
+            </p-calendar>
           </div>
         </div>
       </div>
@@ -45,7 +48,7 @@
         <div class="u-inputgroup ">
           <label for="horaFinal">Hora Final:</label>
           <div class="u-inputgroup input-group app-input">
-            <p-calendar placeholder="Hora final" [timeOnly]="true" formControlName="horaFinal"></p-calendar>
+            <p-calendar placeholder="Hora final" type="time" [timeOnly]="true" formControlName="horaFinal"></p-calendar>
           </div>
         </div>
       </div>

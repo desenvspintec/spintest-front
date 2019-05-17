@@ -38,14 +38,13 @@ export class ListaPassoDeTesteComponent implements OnInit {
   ngOnInit() {
 
     this.cols = [
-      { field: 'codigo', header: 'Código', style: 'text-align: left;' },
+      { field: 'id', header: 'Código', style: 'text-align: left;' },
       { field: 'acao', header: 'Ação do Passo', style: 'text-align: left;' },
       { field: 'resultado', header: 'Resultado esperado', style: 'text-align: left;' },
-      { field: 'tipo_teste', header: 'Tipo de Execução', style: 'text-align: left;' },
+      { field: 'tipoTeste', header: 'Tipo de Execução', style: 'text-align: left;' },
       { field: 'sequencia', header: 'Seq. Exec.', style: 'text-align: left;' },
       { field: 'situacao', header: 'Situação', style: 'text-align: left;' }
     ];
-
 
     const casoTeste = this._dataService.getData(this._channelCasoTeste);
     this.title = casoTeste.descricao;
@@ -62,7 +61,7 @@ export class ListaPassoDeTesteComponent implements OnInit {
   }
 
   public tableDoubleClick(event) {
-    // const navigateUrl = 'planejamento/planodeteste/plteste/listaplanodeteste';
-    // this._router.navigate([navigateUrl]);
+    const navigateUrl = 'planejamento/planodeteste/plteste/listaplanodeteste';
+    this._router.navigate([navigateUrl]);
   }
 }
