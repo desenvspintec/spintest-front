@@ -1,5 +1,5 @@
-<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
-  <app-form (voltar)="voltar($event)" [title]="form.value.nome" [form]="form">
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar()" class="layout-form-page">
+  <app-form (voltar)="voltar()" [title]="form.value.nome" [form]="form">
 
     <div class="ui-g ui-fluid">
       <div class="ui-g-12 ui-md-4">
