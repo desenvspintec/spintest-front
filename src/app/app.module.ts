@@ -39,7 +39,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TreeModule } from 'primeng/tree';
 import { CardModule } from 'primeng/card';
 import { AccordionModule } from 'primeng/accordion';
-
+import { ChartModule } from 'primeng/chart';
 // app components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/template/header/header.component';
@@ -185,7 +185,8 @@ import { PerfilUsuarioComponent } from './pages/configuracoes/usuario/perfil-usu
     TreeModule,
     CardModule,
     AccordionModule,
-    PubSubModule.forRoot()
+    PubSubModule.forRoot(),
+    ChartModule
   ],
   providers: [
     {

@@ -47,7 +47,6 @@ export class ListaFuncionalidadeComponent implements OnInit, OnDestroy {
 
     this._funcionalidadeService
       .findByProdutoId(produto.id)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(funcionalidades => this.data = funcionalidades);
   }
 

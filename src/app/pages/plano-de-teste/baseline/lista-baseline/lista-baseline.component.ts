@@ -44,7 +44,6 @@ export class ListaBaselineComponent implements OnInit, OnDestroy {
 
     this._baselineService
       .findByPlanoTesteId(0) // FIXME
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(baseLines => this.data = baseLines);
   }
 

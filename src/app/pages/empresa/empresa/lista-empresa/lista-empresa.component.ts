@@ -37,7 +37,6 @@ export class ListaEmpresaComponent implements OnInit, OnDestroy {
     ];
 
     this.empresaService.findAll()
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(empresas => this.data = empresas);
   }
 

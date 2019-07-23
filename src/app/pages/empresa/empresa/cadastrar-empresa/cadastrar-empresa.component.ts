@@ -72,7 +72,7 @@ export class CadastrarEmpresaComponent implements OnInit, OnDestroy {
         severity: 'success',
         detail: 'Empresa salva com sucesso!'
       });
-
+      this.voltar(null);
     });
   }
 

@@ -50,7 +50,6 @@ export class ListaContatoComponent implements OnInit, OnDestroy {
 
     this._fornecedorContatoService
       .findByFornecedorId(fornecedor.id)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(contatos => this.data = contatos);
   }
 

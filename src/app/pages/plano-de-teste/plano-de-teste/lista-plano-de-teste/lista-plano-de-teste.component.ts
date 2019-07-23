@@ -43,7 +43,6 @@ export class ListaPlanoDeTesteComponent implements OnInit, OnDestroy {
 
     this._planoTesteService
       .findAll()
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(planos => this.data = planos);
 
   }

@@ -1,4 +1,4 @@
-<form name="form" [formGroup]="form" (ngSubmit)="salvar();voltar($event)" class="layout-form-page">
+<form name="form" [formGroup]="form" (ngSubmit)="salvar();" class="layout-form-page">
   <app-form (voltar)="voltar($event)" [form]="form" title="Baseline - Cadastro">
 
     <div class="ui-g ui-fluid">
@@ -16,8 +16,8 @@
         <div class="u-inputgroup ">
           <label for="dataInicio">Data de Início:</label>
           <div class="u-inputgroup input-group app-input">
-            <p-calendar placeholder="Data de início" formControlName="dataInicio"></p-calendar>
-            <app-error-msg [control]="form.get('dataInicio')" label="Data início"></app-error-msg>
+            <p-calendar placeholder="Data de início" formControlName="dataInicio" [locale]="ptBr"></p-calendar>
+
           </div>
         </div>
       </div>
@@ -26,8 +26,8 @@
         <div class="u-inputgroup ">
           <label for="dataFinal">Data Final:</label>
           <div class="u-inputgroup input-group app-input">
-            <p-calendar placeholder="Data final" formControlName="dataFinal"></p-calendar>
-            <app-error-msg [control]="form.get('dataFinal')" label="Data final"></app-error-msg>
+            <p-calendar placeholder="Data final" formControlName="dataFinal" [locale]="ptBr"></p-calendar>
+
           </div>
         </div>
       </div>
@@ -40,6 +40,7 @@
           <div class="u-inputgroup input-group app-input">
             <p-calendar placeholder="Hora de início" type="time" [timeOnly]="true" formControlName="horaInicio">
             </p-calendar>
+            <app-error-msg [control]="form.get('horaInicio')" label="Data final"></app-error-msg>
           </div>
         </div>
       </div>
@@ -49,6 +50,7 @@
           <label for="horaFinal">Hora Final:</label>
           <div class="u-inputgroup input-group app-input">
             <p-calendar placeholder="Hora final" type="time" [timeOnly]="true" formControlName="horaFinal"></p-calendar>
+            <app-error-msg [control]="form.get('horaFinal')" label="Data final"></app-error-msg>
           </div>
         </div>
       </div>
@@ -58,7 +60,10 @@
       <div class="u-inputgroup ui-g-12 ui-md-6">
         <label for="usuarioExecutor">Usuário Executor:</label>
         <div class="u-inputgroup input-group app-input">
-          <p-dropdown [options]="[]" placeholder="Selecione" formControlName="userExecutorId" filter="true">
+          <p-dropdown [options]="pessoas" placeholder="Selecione" formControlName="userExecutorId" filter="true">
+            <ng-template let-group pTemplate="group">
+              <span style="margin-left:.25em">{{group.label}}</span>
+            </ng-template>
           </p-dropdown>
           <app-error-msg [control]="form.get('userExecutorId')" label="Usuário executor"></app-error-msg>
         </div>

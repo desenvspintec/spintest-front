@@ -48,7 +48,6 @@ export class ListaFornecedorComponent implements OnInit, OnDestroy {
     this.title = empresa.nome;
 
     this.fornecedorService.findByEmpresaId(empresa.id)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(fornecedores => this.data = fornecedores);
   }
 

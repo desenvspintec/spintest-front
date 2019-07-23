@@ -35,7 +35,6 @@ export class CadastrarUsuarioComponent implements OnInit, OnDestroy {
     });
 
     this.form.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(() => {
         this._defineValidators();
       })

@@ -51,7 +51,6 @@ export class ListaPassoDeTesteComponent implements OnInit {
 
     this._passoTesteService
       .findByCasoTesteId(casoTeste.id)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(passos => this.data = passos);
   }
 

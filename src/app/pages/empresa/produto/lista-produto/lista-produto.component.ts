@@ -51,7 +51,6 @@ export class ListaProdutoComponent implements OnInit, OnDestroy {
 
     this.produtoService
     .findByFornecedor(fornecedor.id)
-    .pipe(takeUntil(this._unsubscribeAll))
     .subscribe(produtos => this.data = produtos);
   }
 

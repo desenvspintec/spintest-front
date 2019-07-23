@@ -79,7 +79,6 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
         if (produtoId && empresaId) {
           this._projetoTesteService
             .findByEmpresaProdutoId(empresaId, produtoId)
-            .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(projetos => this.projetos =
               projetos.map(projeto => {
                 console.log('projeto', projeto);
@@ -94,7 +93,6 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
 
   private _updateFormValues(data: any): void {
     this._getProdutosEmpresaFornecedor(data.empresaId)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(groupedProdutos => {
         this.groupedProdutos = groupedProdutos;
         this.form.setValue(data, { emitEvent: false });
@@ -122,7 +120,6 @@ export class CadastrarPlanoDeTesteComponent implements OnInit {
 
   private _getEmpresas(): void {
     this._empresaService.findAll()
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(empresas => {
         this.empresas = empresas.map(empresa => {
           return {

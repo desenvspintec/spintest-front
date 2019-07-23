@@ -71,7 +71,6 @@ export class CadastrarProjetoDeTesteComponent implements OnInit, OnDestroy {
 
   private _updateFormValues(data: any): void {
     this._getProdutosEmpresaFornecedor(data.empresaId)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(groupedProdutos => {
         this.groupedProdutos = groupedProdutos;
         this.form.setValue(data, { emitEvent: false });
@@ -80,7 +79,6 @@ export class CadastrarProjetoDeTesteComponent implements OnInit, OnDestroy {
 
   private _getEmpresas(): void {
     this._empresaService.findAll()
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(empresas => {
         this.empresas = empresas.map(empresa => {
           return {

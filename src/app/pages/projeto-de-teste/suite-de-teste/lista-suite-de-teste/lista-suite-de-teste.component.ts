@@ -47,7 +47,6 @@ export class ListaSuiteDeTesteComponent implements OnInit {
 
     this._suiteTesteService
       .findByProjetoTesteId(projeto.id)
-      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(suites => this.data = suites);
   }
 
