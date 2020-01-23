@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
   let keycloakConfig: KeycloakConfig = {
-    url: 'http://ec2-54-202-0-205.us-west-2.compute.amazonaws.com:8080/auth',
+    url: 'http://167.172.130.89:8000/auth',
     realm: 'master',
     clientId: 'my-app',
 
@@ -22,7 +22,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
             flow: 'implicit'
           },
           bearerExcludedUrls: [],
-          
+
         });
         resolve();
       } catch (error) {
